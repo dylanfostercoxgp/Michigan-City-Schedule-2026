@@ -256,44 +256,44 @@
     .event-row { cursor: pointer; -webkit-tap-highlight-color: transparent; }
     .event-row:active { opacity: 0.85; }
 
-    /* MODAL OVERLAY */
+    /* MODAL OVERLAY — centered on all screen sizes */
     .modal-overlay {
       display: none;
       position: fixed; inset: 0; z-index: 1000;
-      background: rgba(11,30,61,0.55);
+      background: rgba(11,30,61,0.6);
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
-      align-items: flex-end;
+      align-items: center;
       justify-content: center;
-      padding: 0;
+      padding: 16px;
     }
     .modal-overlay.open { display: flex; }
 
-    /* BOTTOM SHEET (mobile-first) */
+    /* MODAL SHEET */
     .modal-sheet {
       background: var(--white);
       width: 100%;
-      max-height: 88vh;
-      border-radius: 20px 20px 0 0;
+      max-width: 480px;
+      max-height: 82vh;
+      border-radius: 20px;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      transform: translateY(100%);
-      transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+      transform: scale(0.95) translateY(12px);
+      opacity: 0;
+      transition: transform 0.22s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.18s ease;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.25);
       position: relative;
     }
-    .modal-overlay.open .modal-sheet { transform: translateY(0); }
-
-    /* DRAG HANDLE */
-    .modal-handle {
-      width: 36px; height: 4px;
-      background: var(--gray-300); border-radius: 2px;
-      margin: 12px auto 0;
+    .modal-overlay.open .modal-sheet {
+      transform: scale(1) translateY(0);
+      opacity: 1;
     }
+
+    /* Hide drag handle — not needed for centered modal */
+    .modal-handle { display: none; }
 
     /* MODAL TYPE STRIP */
-    .modal-type-strip {
-      height: 4px; width: 100%; margin-top: 8px;
-    }
+    .modal-type-strip { height: 5px; width: 100%; border-radius: 20px 20px 0 0; }
     .modal-type-strip.race     { background: var(--red); }
     .modal-type-strip.official { background: var(--sky); }
     .modal-type-strip.social   { background: var(--amber); }
@@ -327,7 +327,7 @@
     .modal-close:hover { background: var(--gray-200); }
 
     /* MODAL BODY */
-    .modal-body { padding: 12px 20px 32px; }
+    .modal-body { padding: 12px 20px 28px; }
     .modal-event-name {
       font-size: 20px; font-weight: 900; color: var(--gray-900);
       line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px;
@@ -348,14 +348,10 @@
     .modal-detail-value {
       font-size: 14px; font-weight: 500; color: var(--gray-900); line-height: 1.4;
     }
-    .modal-detail-value a {
-      color: var(--sky); text-decoration: none; font-weight: 600;
-    }
+    .modal-detail-value a { color: var(--sky); text-decoration: none; font-weight: 600; }
     .modal-detail-value a:hover { text-decoration: underline; }
 
-    .modal-classes {
-      font-size: 13px; font-weight: 700; color: var(--red); line-height: 1.6;
-    }
+    .modal-classes { font-size: 13px; font-weight: 700; color: var(--red); line-height: 1.6; }
 
     .modal-action-btn {
       display: flex; align-items: center; justify-content: center; gap: 8px;
@@ -368,29 +364,6 @@
     .modal-action-btn:hover { background: var(--dark-hover); }
     .modal-action-btn.race-btn { background: var(--red); }
     .modal-action-btn.race-btn:hover { background: #c01040; }
-
-    /* DESKTOP — centered modal */
-    @media (min-width: 600px) {
-      .modal-overlay {
-        align-items: center;
-        padding: 20px;
-      }
-      .modal-sheet {
-        width: 100%;
-        max-width: 480px;
-        max-height: 85vh;
-        border-radius: 20px;
-        transform: translateY(20px) scale(0.97);
-        opacity: 0;
-        transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.2s ease;
-        box-shadow: 0 24px 60px rgba(0,0,0,0.22);
-      }
-      .modal-overlay.open .modal-sheet {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
-      .modal-handle { display: none; }
-    }
 
     /* PRINT — hide modal */
     @media print {
