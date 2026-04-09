@@ -463,9 +463,10 @@ function renderEvent(evt) {
   row.className = 'event-row ' + evt.type;
   const isRace = evt.type === 'race';
 
+  const nameFormatted = evt.name.replace(/\r\n|\r|\n/g, '<br>');
   const nameText = evt.url
-    ? `<a href="${evt.url}" target="_blank" rel="noopener" class="event-link">${evt.name}</a>`
-    : evt.name;
+    ? `<a href="${evt.url}" target="_blank" rel="noopener" class="event-link">${nameFormatted}</a>`
+    : nameFormatted;
   const namePart = isRace
     ? `<span class="event-name">${nameText}<span class="race-badge">RACE</span></span>`
     : `<span class="event-name">${nameText}</span>`;
