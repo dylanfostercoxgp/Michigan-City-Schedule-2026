@@ -252,6 +252,151 @@
     }
     .btn-print:hover { background: var(--dark-hover); }
 
+    /* EVENT ROW CLICKABLE */
+    .event-row { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .event-row:active { opacity: 0.85; }
+
+    /* MODAL OVERLAY */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(11,30,61,0.55);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      align-items: flex-end;
+      justify-content: center;
+      padding: 0;
+    }
+    .modal-overlay.open { display: flex; }
+
+    /* BOTTOM SHEET (mobile-first) */
+    .modal-sheet {
+      background: var(--white);
+      width: 100%;
+      max-height: 88vh;
+      border-radius: 20px 20px 0 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+      position: relative;
+    }
+    .modal-overlay.open .modal-sheet { transform: translateY(0); }
+
+    /* DRAG HANDLE */
+    .modal-handle {
+      width: 36px; height: 4px;
+      background: var(--gray-300); border-radius: 2px;
+      margin: 12px auto 0;
+    }
+
+    /* MODAL TYPE STRIP */
+    .modal-type-strip {
+      height: 4px; width: 100%; margin-top: 8px;
+    }
+    .modal-type-strip.race     { background: var(--red); }
+    .modal-type-strip.official { background: var(--sky); }
+    .modal-type-strip.social   { background: var(--amber); }
+    .modal-type-strip.ops      { background: var(--gray-300); }
+
+    /* MODAL HEADER ROW */
+    .modal-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 12px;
+      padding: 16px 20px 0;
+    }
+    .modal-type-time { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .modal-type-badge {
+      font-size: 9px; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 3px 9px; border-radius: 20px; color: #fff;
+    }
+    .modal-type-badge.race     { background: var(--red); }
+    .modal-type-badge.official { background: var(--sky); }
+    .modal-type-badge.social   { background: var(--amber); }
+    .modal-type-badge.ops      { background: var(--gray-400); }
+    .modal-time {
+      font-size: 12px; font-weight: 700; color: var(--gray-400); letter-spacing: -0.01em;
+    }
+    .modal-close {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--gray-100); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: var(--gray-500); transition: background 0.15s;
+      font-size: 18px; line-height: 1;
+    }
+    .modal-close:hover { background: var(--gray-200); }
+
+    /* MODAL BODY */
+    .modal-body { padding: 12px 20px 32px; }
+    .modal-event-name {
+      font-size: 20px; font-weight: 900; color: var(--gray-900);
+      line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px;
+    }
+    .modal-event-name.race { color: var(--red); }
+
+    .modal-detail-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 10px 0; border-top: 1px solid var(--gray-100);
+    }
+    .modal-detail-icon {
+      font-size: 16px; flex-shrink: 0; width: 22px; text-align: center; margin-top: 1px;
+    }
+    .modal-detail-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--gray-400); margin-bottom: 2px;
+    }
+    .modal-detail-value {
+      font-size: 14px; font-weight: 500; color: var(--gray-900); line-height: 1.4;
+    }
+    .modal-detail-value a {
+      color: var(--sky); text-decoration: none; font-weight: 600;
+    }
+    .modal-detail-value a:hover { text-decoration: underline; }
+
+    .modal-classes {
+      font-size: 13px; font-weight: 700; color: var(--red); line-height: 1.6;
+    }
+
+    .modal-action-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 14px 20px; margin-top: 20px;
+      background: var(--dark); color: #fff; border: none; border-radius: 12px;
+      font-family: var(--font); font-size: 14px; font-weight: 700;
+      cursor: pointer; text-decoration: none; letter-spacing: 0.02em;
+      transition: background 0.15s;
+    }
+    .modal-action-btn:hover { background: var(--dark-hover); }
+    .modal-action-btn.race-btn { background: var(--red); }
+    .modal-action-btn.race-btn:hover { background: #c01040; }
+
+    /* DESKTOP — centered modal */
+    @media (min-width: 600px) {
+      .modal-overlay {
+        align-items: center;
+        padding: 20px;
+      }
+      .modal-sheet {
+        width: 100%;
+        max-width: 480px;
+        max-height: 85vh;
+        border-radius: 20px;
+        transform: translateY(20px) scale(0.97);
+        opacity: 0;
+        transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.2s ease;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.22);
+      }
+      .modal-overlay.open .modal-sheet {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      .modal-handle { display: none; }
+    }
+
+    /* PRINT — hide modal */
+    @media print {
+      .modal-overlay { display: none !important; }
+    }
+
     /* MOBILE */
     @media (max-width: 520px) {
       .event-row { grid-template-columns: 1fr; gap: 3px; padding: 10px 14px; }
@@ -326,6 +471,28 @@
   </div>
 
   <div id="schedule-container"></div>
+
+  <!-- EVENT DETAIL MODAL -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-event-name">
+    <div class="modal-sheet" id="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-type-strip" id="modal-type-strip"></div>
+      <div class="modal-header">
+        <div class="modal-type-time">
+          <span class="modal-type-badge" id="modal-type-badge"></span>
+          <span class="modal-time" id="modal-time"></span>
+        </div>
+        <button class="modal-close" id="modal-close" aria-label="Close">&#x2715;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-event-name" id="modal-event-name"></div>
+        <div id="modal-details"></div>
+        <a id="modal-action-btn" class="modal-action-btn" target="_blank" rel="noopener" style="display:none">
+          View Details &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
 
   <div class="disclaimer" id="disclaimer" style="display:none">
     ⚠️ &nbsp;<strong>Races subject to change.</strong>&nbsp; All times local Michigan City time (Central).
@@ -485,6 +652,13 @@ function renderEvent(evt) {
       ${classesPart}
       ${locationPart}
     </div>`;
+
+  row.addEventListener('click', e => {
+    // Don't open modal if user tapped a link inside the row
+    if (e.target.closest('a')) return;
+    openModal(evt);
+  });
+
   return row;
 }
 
@@ -608,6 +782,103 @@ async function loadSchedule(forceRefresh = false) {
 }
 
 loadSchedule();
+
+/* =============================================================
+   EVENT DETAIL MODAL
+============================================================= */
+const modalOverlay  = document.getElementById('modal-overlay');
+const modalSheet    = document.getElementById('modal-sheet');
+const modalClose    = document.getElementById('modal-close');
+const modalStrip    = document.getElementById('modal-type-strip');
+const modalBadge    = document.getElementById('modal-type-badge');
+const modalTime     = document.getElementById('modal-time');
+const modalName     = document.getElementById('modal-event-name');
+const modalDetails  = document.getElementById('modal-details');
+const modalActionBtn = document.getElementById('modal-action-btn');
+
+const TYPE_LABELS = { race: 'Race', official: 'Official', social: 'Social', ops: 'Info' };
+
+function openModal(evt) {
+  // Type strip + badge
+  modalStrip.className = 'modal-type-strip ' + evt.type;
+  modalBadge.className = 'modal-type-badge ' + evt.type;
+  modalBadge.textContent = TYPE_LABELS[evt.type] || evt.type;
+
+  // Time
+  modalTime.textContent = evt.time;
+
+  // Name
+  modalName.className = 'modal-event-name' + (evt.type === 'race' ? ' race' : '');
+  modalName.innerHTML = evt.name.replace(/\r\n|\r|\n/g, '<br>');
+
+  // Build detail rows
+  let html = '';
+
+  if (evt.sponsor) {
+    const sponsorDisplay = evt.sponsorUrl
+      ? `<a href="${evt.sponsorUrl}" target="_blank" rel="noopener">${evt.sponsor}</a>`
+      : (SPONSOR_LINKS[evt.sponsor.replace(/^presented by\s*/i,'').trim()] || SPONSOR_LINKS[evt.sponsor])
+        ? `<a href="${SPONSOR_LINKS[evt.sponsor.replace(/^presented by\s*/i,'').trim()] || SPONSOR_LINKS[evt.sponsor]}" target="_blank" rel="noopener">${evt.sponsor}</a>`
+        : evt.sponsor;
+    html += `<div class="modal-detail-row">
+      <div class="modal-detail-icon">🤝</div>
+      <div><div class="modal-detail-label">Sponsor</div><div class="modal-detail-value">${sponsorDisplay}</div></div>
+    </div>`;
+  }
+
+  if (evt.location) {
+    const locDisplay = evt.locationUrl
+      ? `<a href="${evt.locationUrl}" target="_blank" rel="noopener">${evt.location}</a>`
+      : evt.location;
+    html += `<div class="modal-detail-row">
+      <div class="modal-detail-icon">📍</div>
+      <div><div class="modal-detail-label">Location</div><div class="modal-detail-value">${locDisplay}</div></div>
+    </div>`;
+  }
+
+  if (evt.classes) {
+    html += `<div class="modal-detail-row">
+      <div class="modal-detail-icon">🏁</div>
+      <div><div class="modal-detail-label">Classes</div><div class="modal-classes">${evt.classes.replace(/\|/g,'<br>')}</div></div>
+    </div>`;
+  }
+
+  modalDetails.innerHTML = html;
+
+  // Action button
+  if (evt.url) {
+    modalActionBtn.href = evt.url;
+    modalActionBtn.className = 'modal-action-btn' + (evt.type === 'race' ? ' race-btn' : '');
+    modalActionBtn.style.display = 'flex';
+  } else {
+    modalActionBtn.style.display = 'none';
+  }
+
+  // Open
+  modalOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  modalSheet.scrollTop = 0;
+}
+
+function closeModal() {
+  modalOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Close on backdrop click (not sheet click)
+modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeModal(); });
+modalClose.addEventListener('click', closeModal);
+
+// Close on ESC
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// Touch swipe-down to close
+let touchStartY = 0;
+modalSheet.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, { passive: true });
+modalSheet.addEventListener('touchend', e => {
+  const delta = e.changedTouches[0].clientY - touchStartY;
+  if (delta > 60 && modalSheet.scrollTop === 0) closeModal();
+}, { passive: true });
 </script>
 </body>
 </html>
