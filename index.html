@@ -484,7 +484,7 @@ function buildSchedule(schedule) {
 
   schedule.forEach((day, i) => {
     const card = document.createElement('div');
-    card.className = 'day-card collapsed';
+    card.className = 'day-card' + (day.dayName === 'Friday' ? '' : ' collapsed');
     card.id = 'day-' + i;
 
     const badge = day.championship
@@ -497,7 +497,7 @@ function buildSchedule(schedule) {
       </svg>`;
 
     card.innerHTML = `
-      <div class="day-header" role="button" tabindex="0" aria-expanded="false">
+      <div class="day-header" role="button" tabindex="0" aria-expanded="${day.dayName === 'Friday' ? 'true' : 'false'}">
         <div class="day-header-left">
           <div class="day-name">${day.dayName}</div>
           <div class="day-date">${day.date}</div>
