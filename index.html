@@ -209,6 +209,9 @@
     .event-sponsor { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
     .event-sponsor a { color: var(--sky); text-decoration: none; font-weight: 500; }
     .event-sponsor a:hover { text-decoration: underline; }
+    .event-link { color: inherit; text-decoration: underline; text-decoration-color: rgba(0,0,0,0.25); text-underline-offset: 2px; }
+    .event-link:hover { text-decoration-color: var(--sky); color: var(--sky); }
+    .event-row.race .event-link:hover { color: var(--red); text-decoration-color: var(--red); }
 
     .event-classes { font-size: 12px; font-weight: 600; color: var(--red); margin-top: 3px; line-height: 1.5; }
     .event-location { font-size: 11px; color: var(--gray-500); margin-top: 3px; display: flex; align-items: flex-start; gap: 4px; }
@@ -389,7 +392,7 @@ function parseCSV(text) {
 function groupByDay(rows) {
   const days = [], dayMap = new Map();
   rows.forEach(row => {
-    const [dayName, date, championship, raceDay, time, name, sponsor, location, type, details] = row;
+    const [dayName, date, championship, raceDay, time, name, sponsor, location, type, details, url] = row;
     if (!dayName || !date || !time || !name) return;
     const key = `${dayName}|${date}`;
     if (!dayMap.has(key)) {
@@ -404,6 +407,7 @@ function groupByDay(rows) {
       location: location ? location.trim() : null,
       type: (type || 'ops').trim().toLowerCase(),
       classes: details ? details.trim() : null,
+      url: url ? url.trim() : null,
     });
   });
   return days;
@@ -457,9 +461,12 @@ function renderEvent(evt) {
   row.className = 'event-row ' + evt.type;
   const isRace = evt.type === 'race';
 
+  const nameText = evt.url
+    ? `<a href="${evt.url}" target="_blank" rel="noopener" class="event-link">${evt.name}</a>`
+    : evt.name;
   const namePart = isRace
-    ? `<span class="event-name">${evt.name}<span class="race-badge">RACE</span></span>`
-    : `<span class="event-name">${evt.name}</span>`;
+    ? `<span class="event-name">${nameText}<span class="race-badge">RACE</span></span>`
+    : `<span class="event-name">${nameText}</span>`;
 
   const classesPart  = evt.classes  ? `<div class="event-classes">${evt.classes.replace(/\|/g,'<br>')}</div>` : '';
   const locationPart = evt.location ? `<div class="event-location">${evt.location}</div>` : '';
