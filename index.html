@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 XINSURANCE Great Lakes Grand Prix – Official Race Schedule</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dark:        #0B1E3D;
+      --dark-hover:  #112850;
+      --sky:         #0EA5E9;
+      --sky-light:   #F0F9FF;
+      --red:         #E11D48;
+      --red-light:   #FFF1F2;
+      --amber:       #F59E0B;
+      --amber-light: #FFFBEB;
+      --white:       #ffffff;
+      --gray-50:     #F8FAFC;
+      --gray-100:    #F1F5F9;
+      --gray-200:    #E2E8F0;
+      --gray-300:    #CBD5E1;
+      --gray-400:    #94A3B8;
+      --gray-500:    #64748B;
+      --gray-700:    #334155;
+      --gray-900:    #0F172A;
+      --font:        'Inter', system-ui, -apple-system, sans-serif;
+      --shadow-sm:   0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md:   0 4px 16px rgba(0,0,0,0.08);
+      --radius:      12px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--gray-100);
+      color: var(--gray-900);
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* WRAPPER */
+    .page-wrap { max-width: 820px; margin: 0 auto; padding: 0 0 56px; }
+
+    /* HEADER */
+    .schedule-header {
+      background: var(--dark);
+      color: var(--white);
+      padding: 28px 24px 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .schedule-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--red) 0%, var(--red) 40%, var(--sky) 40%, var(--sky) 100%);
+    }
+    .header-inner { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .logos { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+    .logo-glgp { height: 72px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35)); }
+    .header-text { flex: 1; min-width: 200px; }
+    .header-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sky); margin-bottom: 4px; }
+    .header-title { font-size: clamp(18px, 4vw, 26px); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; color: #fff; text-transform: uppercase; }
+    .header-subtitle { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.6); margin-top: 7px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .header-badge { background: var(--red); color: #fff; font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 9px; border-radius: 20px; }
+    .header-actions { display: flex; align-items: center; gap: 10px; margin-top: 11px; flex-wrap: wrap; }
+    .refresh-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 5px 13px; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8);
+      border: 1px solid rgba(255,255,255,0.18); border-radius: 20px;
+      font-family: var(--font); font-size: 11px; font-weight: 600;
+      cursor: pointer; transition: background 0.15s; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .refresh-btn:hover { background: rgba(255,255,255,0.18); }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .refresh-btn.spinning #refresh-icon { animation: spin 0.8s linear infinite; }
+    .last-updated { font-size: 10px; color: rgba(255,255,255,0.38); }
+
+    /* QUICK NAV */
+    .quick-nav {
+      background: var(--white); border-bottom: 1px solid var(--gray-200);
+      padding: 0 12px; overflow-x: auto; white-space: nowrap;
+      -webkit-overflow-scrolling: touch; scrollbar-width: none;
+      position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow-sm);
+    }
+    .quick-nav::-webkit-scrollbar { display: none; }
+    .quick-nav-inner { display: inline-flex; gap: 2px; padding: 7px 0; }
+    .nav-btn {
+      display: inline-flex; flex-direction: column; align-items: center;
+      padding: 6px 13px; border-radius: 8px; border: none;
+      background: transparent; cursor: pointer; font-family: var(--font);
+      transition: background 0.15s; text-decoration: none; color: var(--gray-700);
+    }
+    .nav-btn:hover { background: var(--gray-100); }
+    .nav-btn.race-day { color: var(--red); }
+    .nav-btn-day  { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; }
+    .nav-btn-date { font-size: 10px; color: var(--gray-400); }
+    .nav-race-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--red); margin-top: 2px; }
+
+    /* LOADING */
+    #loading-state {
+      padding: 60px 20px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+    }
+    .loading-logo { width: 56px; height: 56px; animation: pulse 1.4s ease-in-out infinite; }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.94); }
+    }
+    .loading-text { font-size: 14px; font-weight: 600; color: var(--gray-500); }
+    .loading-sub  { font-size: 12px; color: var(--gray-400); }
+
+    /* ERROR */
+    #error-state {
+      display: none; margin: 24px 16px; padding: 22px 20px;
+      background: #FFF1F2; border: 1px solid #FECDD3; border-radius: var(--radius);
+      text-align: center;
+    }
+    .error-title { font-size: 15px; font-weight: 700; color: var(--red); margin-bottom: 6px; }
+    .error-sub   { font-size: 13px; color: var(--gray-500); }
+    .error-retry {
+      display: inline-block; margin-top: 14px; padding: 9px 22px;
+      background: var(--red); color: #fff; border: none; border-radius: 8px;
+      font-family: var(--font); font-size: 12px; font-weight: 700;
+      cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+
+    /* SCHEDULE CONTAINER */
+    #schedule-container { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+
+    /* DAY CARD */
+    .day-card {
+      background: var(--white); border-radius: var(--radius);
+      box-shadow: var(--shadow-sm); overflow: hidden;
+      border: 1px solid var(--gray-200);
+      transition: box-shadow 0.15s;
+    }
+    .day-card:hover { box-shadow: var(--shadow-md); }
+
+    .day-header {
+      background: var(--dark); color: var(--white);
+      padding: 15px 18px; display: flex; align-items: center;
+      justify-content: space-between; gap: 12px;
+      cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent;
+      transition: background 0.15s;
+    }
+    .day-header:hover { background: var(--dark-hover); }
+
+    .day-header-left { display: flex; flex-direction: column; }
+    .day-name { font-size: clamp(15px, 3vw, 18px); font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.1; }
+    .day-date { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.55); margin-top: 2px; }
+
+    .day-header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+    .championship-badge {
+      background: var(--red); color: #fff;
+      font-size: 9px; font-weight: 800; letter-spacing: 0.07em;
+      text-transform: uppercase; padding: 4px 10px; border-radius: 20px;
+      line-height: 1.3; text-align: center;
+    }
+
+    .toggle-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(255,255,255,0.13); border: 1px solid rgba(255,255,255,0.18);
+      padding: 5px 12px; border-radius: 20px;
+      font-size: 10px; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(255,255,255,0.88);
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    .day-header:hover .toggle-pill { background: rgba(255,255,255,0.22); }
+    .toggle-chevron { transition: transform 0.22s ease; flex-shrink: 0; }
+
+    /* Collapsed state */
+    .day-card.collapsed .day-body { display: none; }
+    .day-card.collapsed .toggle-chevron { transform: rotate(-90deg); }
+    .pill-hide { display: inline; }
+    .pill-show { display: none; }
+    .day-card.collapsed .pill-hide { display: none; }
+    .day-card.collapsed .pill-show { display: inline; }
+
+    /* EVENT ROWS */
+    .events-list { padding: 4px 0; }
+    .event-row {
+      display: grid; grid-template-columns: 140px 1fr;
+      padding: 10px 18px; border-left: 3px solid transparent;
+      transition: background 0.1s; align-items: start;
+    }
+    .event-row:not(:last-child) { border-bottom: 1px solid var(--gray-100); }
+    .event-row:hover { background: var(--gray-50) !important; }
+
+    .event-row.race     { background: var(--red-light);   border-left-color: var(--red); }
+    .event-row.official { background: var(--sky-light);   border-left-color: var(--sky); }
+    .event-row.social   { background: var(--amber-light); border-left-color: var(--amber); }
+    .event-row.ops      { border-left-color: var(--gray-200); }
+
+    .event-time { font-size: 12px; font-weight: 600; color: var(--gray-400); padding-top: 1px; padding-right: 12px; letter-spacing: -0.01em; line-height: 1.4; }
+    .event-row.race     .event-time { color: var(--red);   font-weight: 700; }
+    .event-row.official .event-time { color: var(--sky);   font-weight: 600; }
+    .event-row.social   .event-time { color: var(--amber); font-weight: 600; }
+
+    .event-name { font-size: 13px; font-weight: 500; color: var(--gray-900); line-height: 1.4; }
+    .event-row.race .event-name { font-weight: 800; font-size: 14px; }
+
+    .event-sponsor { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+    .event-sponsor a { color: var(--sky); text-decoration: none; font-weight: 500; }
+    .event-sponsor a:hover { text-decoration: underline; }
+
+    .event-classes { font-size: 12px; font-weight: 600; color: var(--red); margin-top: 3px; line-height: 1.5; }
+    .event-location { font-size: 11px; color: var(--gray-500); margin-top: 3px; display: flex; align-items: flex-start; gap: 4px; }
+    .event-location::before { content: '📍'; font-size: 10px; flex-shrink: 0; margin-top: 1px; }
+
+    .race-badge {
+      display: inline-block; background: var(--red); color: #fff;
+      font-size: 9px; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 2px 6px; border-radius: 4px;
+      margin-left: 6px; vertical-align: middle;
+    }
+
+    .race-section-header {
+      background: linear-gradient(90deg, rgba(225,29,72,0.07), transparent);
+      padding: 7px 18px; border-left: 3px solid var(--red);
+      border-top: 1px solid var(--gray-100); border-bottom: 1px solid var(--gray-100);
+    }
+    .race-section-label { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); }
+
+    /* DISCLAIMER */
+    .disclaimer {
+      margin: 0 16px; padding: 11px 16px;
+      background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 8px;
+      font-size: 11px; font-weight: 500; color: #92400E; text-align: center;
+    }
+
+    /* FOOTER */
+    .schedule-footer { margin-top: 24px; padding: 20px 16px; text-align: center; border-top: 1px solid var(--gray-200); }
+    .footer-logo { height: 36px; width: auto; object-fit: contain; opacity: 0.4; margin-bottom: 8px; }
+    .footer-text { font-size: 11px; color: var(--gray-400); }
+    .footer-text a { color: var(--sky); text-decoration: none; }
+    .footer-btns { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .btn-print {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 20px; background: var(--dark); color: #fff; border: none; border-radius: 8px;
+      font-family: var(--font); font-size: 12px; font-weight: 600;
+      cursor: pointer; text-transform: uppercase; letter-spacing: 0.06em; transition: background 0.15s;
+    }
+    .btn-print:hover { background: var(--dark-hover); }
+
+    /* MOBILE */
+    @media (max-width: 520px) {
+      .event-row { grid-template-columns: 1fr; gap: 3px; padding: 10px 14px; }
+      .event-time { font-size: 11px; font-weight: 700; padding-right: 0; }
+      .championship-badge { font-size: 8px; padding: 3px 8px; }
+      .toggle-pill { font-size: 9px; padding: 4px 10px; }
+      .logo-glgp { height: 54px; }
+      .header-title { font-size: 16px; }
+      #schedule-container { padding: 10px; gap: 10px; }
+    }
+
+    /* PRINT */
+    @media print {
+      body { background: #fff; font-size: 11px; }
+      .quick-nav, .footer-btns, .refresh-btn, .header-actions, #loading-state, #error-state { display: none !important; }
+      .page-wrap { max-width: 100%; padding: 0; }
+      .day-card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; margin-bottom: 10px; }
+      .day-card.collapsed .day-body { display: block !important; }
+      .day-header, .event-row.race, .championship-badge, .schedule-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      #schedule-container { padding: 6px; gap: 8px; }
+      .event-row { padding: 7px 14px; }
+      .toggle-pill { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <header class="schedule-header">
+    <div class="header-inner">
+      <div class="logos">
+        <img src="https://raceworldoffshore.com/wp-content/uploads/2024/12/2024_GreatLakesGrandPrixLogo-1536x1130-1.png"
+             alt="XINSURANCE Great Lakes Grand Prix" class="logo-glgp" onerror="this.style.display='none'">
+      </div>
+      <div class="header-text">
+        <div class="header-eyebrow">Race World Offshore</div>
+        <h1 class="header-title">XINSURANCE Great Lakes<br>Grand Prix</h1>
+        <div class="header-subtitle">
+          <span>July 27 – August 2, 2026</span>
+          <span style="color:rgba(255,255,255,0.25)">|</span>
+          <span>Michigan City, Indiana</span>
+          <span class="header-badge">Official Schedule</span>
+        </div>
+        <div class="header-actions">
+          <button class="refresh-btn" id="refresh-btn" onclick="loadSchedule(true)">
+            <svg id="refresh-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+            </svg>
+            Refresh
+          </button>
+          <span class="last-updated" id="last-updated"></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="quick-nav" aria-label="Jump to day">
+    <div class="quick-nav-inner" id="quick-nav-inner"></div>
+  </nav>
+
+  <div id="loading-state">
+    <img src="https://raceworldoffshore.com/wp-content/uploads/2026/03/RWO-square.png"
+         alt="RWO" class="loading-logo" onerror="this.style.display='none'">
+    <div class="loading-text">Loading Schedule…</div>
+    <div class="loading-sub">Fetching latest data from Google Sheets</div>
+  </div>
+
+  <div id="error-state">
+    <div class="error-title">⚠️ Could Not Load Schedule</div>
+    <div class="error-sub">The schedule data could not be loaded. Make sure you are viewing this page from GitHub Pages (https://), not opened locally from your computer.</div>
+    <button class="error-retry" onclick="loadSchedule(true)">Try Again</button>
+  </div>
+
+  <div id="schedule-container"></div>
+
+  <div class="disclaimer" id="disclaimer" style="display:none">
+    ⚠️ &nbsp;<strong>Races subject to change.</strong>&nbsp; All times local Michigan City time (Central).
+  </div>
+
+  <footer class="schedule-footer">
+    <img src="https://raceworldoffshore.com/wp-content/uploads/2024/12/2024_GreatLakesGrandPrixLogo-1536x1130-1.png"
+         alt="Great Lakes Grand Prix" class="footer-logo" onerror="this.style.display='none'">
+    <div class="footer-text">
+      &copy; 2026 Race World Offshore &nbsp;&bull;&nbsp;
+      <a href="https://raceworldoffshore.com/michigan-city/" target="_blank">raceworldoffshore.com/michigan-city</a>
+    </div>
+    <div class="footer-btns">
+      <button class="btn-print" onclick="window.print()">🖨️ &nbsp;Print Schedule</button>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* =============================================================
+   CONFIG — paste your Google Sheets published CSV URL here
+============================================================= */
+const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRJimDTpMjZvn2lD4DtTwtFh722j4lywlmGa_vWsTdLhDPuRQQx03R5h2k9_QVl8tFEbF4kiXs1fchT/pub?gid=572352995&single=true&output=csv';
+
+/* =============================================================
+   SPONSOR LINKS
+   Add a URL for any sponsor and it becomes a clickable link.
+============================================================= */
+const SPONSOR_LINKS = {
+  'XINSURANCE': 'https://raceworldoffshore.com/michigan-city/',
+};
+
+/* =============================================================
+   CSV PARSER
+============================================================= */
+function parseCSV(text) {
+  const rows = [];
+  let row = [], field = '', inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i], nx = text[i + 1];
+    if (inQ) {
+      if (ch === '"' && nx === '"') { field += '"'; i++; }
+      else if (ch === '"') { inQ = false; }
+      else { field += ch; }
+    } else {
+      if (ch === '"') { inQ = true; }
+      else if (ch === ',') { row.push(field.trim()); field = ''; }
+      else if (ch === '\n' || (ch === '\r' && nx === '\n')) {
+        if (ch === '\r') i++;
+        row.push(field.trim());
+        if (row.some(f => f)) rows.push(row);
+        row = []; field = '';
+      } else { field += ch; }
+    }
+  }
+  if (field || row.length) { row.push(field.trim()); if (row.some(f => f)) rows.push(row); }
+  return rows;
+}
+
+/* =============================================================
+   GROUP ROWS INTO DAY OBJECTS
+============================================================= */
+function groupByDay(rows) {
+  const days = [], dayMap = new Map();
+  rows.forEach(row => {
+    const [dayName, date, championship, raceDay, time, name, sponsor, location, type, details] = row;
+    if (!dayName || !date || !time || !name) return;
+    const key = `${dayName}|${date}`;
+    if (!dayMap.has(key)) {
+      const d = { dayName: dayName.trim(), date: date.trim(),
+        championship: championship ? championship.trim() : null,
+        isRaceDay: (raceDay || '').trim().toLowerCase() === 'yes', events: [] };
+      dayMap.set(key, d); days.push(d);
+    }
+    dayMap.get(key).events.push({
+      time: time.trim(), name: name.trim(),
+      sponsor: sponsor ? sponsor.trim() : null,
+      location: location ? location.trim() : null,
+      type: (type || 'ops').trim().toLowerCase(),
+      classes: details ? details.trim() : null,
+    });
+  });
+  return days;
+}
+
+/* =============================================================
+   RENDER: QUICK NAV
+============================================================= */
+function buildQuickNav(schedule) {
+  const nav = document.getElementById('quick-nav-inner');
+  nav.innerHTML = '';
+  schedule.forEach((day, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'nav-btn' + (day.isRaceDay ? ' race-day' : '');
+    const shortDate = day.date
+      .replace('July ', 'Jul ')
+      .replace('August ', 'Aug ');
+    btn.innerHTML = `<span class="nav-btn-day">${day.dayName.substring(0,3)}</span>
+                     <span class="nav-btn-date">${shortDate}</span>
+                     ${day.isRaceDay ? '<span class="nav-race-dot"></span>' : ''}`;
+    btn.addEventListener('click', () => {
+      const card = document.getElementById('day-' + i);
+      if (card) {
+        card.classList.remove('collapsed');
+        card.querySelector('.day-header').setAttribute('aria-expanded', 'true');
+        setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 30);
+      }
+    });
+    nav.appendChild(btn);
+  });
+}
+
+/* =============================================================
+   RENDER: SPONSOR
+============================================================= */
+function sponsorHTML(sponsor) {
+  if (!sponsor) return '';
+  const clean = sponsor.replace(/^presented by\s*/i, '').trim();
+  const url = SPONSOR_LINKS[clean] || SPONSOR_LINKS[sponsor];
+  const display = url
+    ? `<a href="${url}" target="_blank" rel="noopener">${sponsor}</a>`
+    : sponsor;
+  return `<div class="event-sponsor">${display}</div>`;
+}
+
+/* =============================================================
+   RENDER: EVENT ROW
+============================================================= */
+function renderEvent(evt) {
+  const row = document.createElement('div');
+  row.className = 'event-row ' + evt.type;
+  const isRace = evt.type === 'race';
+
+  const namePart = isRace
+    ? `<span class="event-name">${evt.name}<span class="race-badge">RACE</span></span>`
+    : `<span class="event-name">${evt.name}</span>`;
+
+  const classesPart  = evt.classes  ? `<div class="event-classes">${evt.classes.replace(/\|/g,'<br>')}</div>` : '';
+  const locationPart = evt.location ? `<div class="event-location">${evt.location}</div>` : '';
+
+  row.innerHTML = `
+    <div class="event-time">${evt.time}</div>
+    <div class="event-content">
+      ${namePart}
+      ${sponsorHTML(evt.sponsor)}
+      ${classesPart}
+      ${locationPart}
+    </div>`;
+  return row;
+}
+
+/* =============================================================
+   RENDER: FULL SCHEDULE
+============================================================= */
+function buildSchedule(schedule) {
+  const container = document.getElementById('schedule-container');
+  container.innerHTML = '';
+
+  schedule.forEach((day, i) => {
+    const card = document.createElement('div');
+    card.className = 'day-card collapsed';
+    card.id = 'day-' + i;
+
+    const badge = day.championship
+      ? `<div class="championship-badge">🏁 ${day.championship}</div>`
+      : '';
+
+    const chevronSVG = `<svg class="toggle-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>`;
+
+    card.innerHTML = `
+      <div class="day-header" role="button" tabindex="0" aria-expanded="false">
+        <div class="day-header-left">
+          <div class="day-name">${day.dayName}</div>
+          <div class="day-date">${day.date}</div>
+        </div>
+        <div class="day-header-right">
+          ${badge}
+          <div class="toggle-pill">
+            ${chevronSVG}
+            <span class="pill-show">SHOW</span>
+            <span class="pill-hide">HIDE</span>
+          </div>
+        </div>
+      </div>
+      <div class="day-body"><div class="events-list"></div></div>`;
+
+    const eventsList = card.querySelector('.events-list');
+    let raceHeaderInserted = false;
+    day.events.forEach(evt => {
+      if (evt.type === 'race' && !raceHeaderInserted) {
+        const divider = document.createElement('div');
+        divider.className = 'race-section-header';
+        divider.innerHTML = '<div class="race-section-label">🏁 Race Schedule — Subject to Change</div>';
+        eventsList.appendChild(divider);
+        raceHeaderInserted = true;
+      }
+      eventsList.appendChild(renderEvent(evt));
+    });
+
+    const header = card.querySelector('.day-header');
+    const toggle = () => {
+      const isNowCollapsed = card.classList.toggle('collapsed');
+      header.setAttribute('aria-expanded', String(!isNowCollapsed));
+    };
+    header.addEventListener('click', toggle);
+    header.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+
+    container.appendChild(card);
+  });
+}
+
+/* =============================================================
+   MAIN LOADER
+============================================================= */
+async function loadSchedule(forceRefresh = false) {
+  const loading     = document.getElementById('loading-state');
+  const errorEl     = document.getElementById('error-state');
+  const container   = document.getElementById('schedule-container');
+  const disclaimer  = document.getElementById('disclaimer');
+  const refreshBtn  = document.getElementById('refresh-btn');
+  const lastUpdated = document.getElementById('last-updated');
+
+  if (!SHEETS_CSV_URL || SHEETS_CSV_URL === 'PLACEHOLDER_GOOGLE_SHEETS_CSV_URL') {
+    loading.style.display = 'none';
+    errorEl.style.display = 'block';
+    errorEl.querySelector('.error-title').textContent = '⚙️ Setup Required';
+    errorEl.querySelector('.error-sub').textContent = 'Paste your Google Sheets CSV URL into the SHEETS_CSV_URL variable at the top of the script.';
+    return;
+  }
+
+  if (forceRefresh) {
+    container.innerHTML = '';
+    disclaimer.style.display = 'none';
+    refreshBtn.classList.add('spinning');
+  } else {
+    loading.style.display = 'flex';
+  }
+  errorEl.style.display = 'none';
+
+  try {
+    const url = `${SHEETS_CSV_URL}${forceRefresh ? '&cb=' + Date.now() : ''}`;
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const text = await resp.text();
+    const rows = parseCSV(text);
+    if (rows.length < 2) throw new Error('Empty CSV');
+    const schedule = groupByDay(rows.slice(1));
+    if (!schedule.length) throw new Error('No data');
+
+    buildQuickNav(schedule);
+    buildSchedule(schedule);
+    loading.style.display = 'none';
+    disclaimer.style.display = 'block';
+    lastUpdated.textContent = `Updated ${new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}`;
+  } catch (err) {
+    console.error(err);
+    loading.style.display = 'none';
+    errorEl.style.display = 'block';
+    errorEl.querySelector('.error-title').textContent = '⚠️ Could Not Load Schedule';
+    errorEl.querySelector('.error-sub').innerHTML =
+      `The schedule data could not be loaded. Make sure you are viewing this page from GitHub Pages (https://), not opened locally.<br>
+       <small style="color:#94a3b8;font-size:11px">Error: ${err.message}</small>`;
+  } finally {
+    refreshBtn.classList.remove('spinning');
+  }
+}
+
+loadSchedule();
+</script>
+</body>
+</html>
