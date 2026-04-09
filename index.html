@@ -383,15 +383,79 @@
 
     /* PRINT */
     @media print {
-      body { background: #fff; font-size: 11px; }
-      .quick-nav, .footer-btns, .refresh-btn, .header-actions, #loading-state, #error-state { display: none !important; }
+      @page { margin: 0.55in 0.5in; size: letter portrait; }
+
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+      body { background: #fff; font-size: 10px; }
+
+      /* Hide all interactive / screen-only elements */
+      .quick-nav, .footer-btns, .refresh-btn, .header-actions,
+      #loading-state, #error-state, .modal-overlay,
+      .toggle-pill, .schedule-footer { display: none !important; }
+
       .page-wrap { max-width: 100%; padding: 0; }
-      .day-card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; margin-bottom: 10px; }
+
+      /* Compact print header */
+      .schedule-header { padding: 10px 14px 9px; }
+      .logos { display: none; }
+      .header-eyebrow { font-size: 8px; }
+      .header-title { font-size: 14px; }
+      .header-subtitle { font-size: 9px; margin-top: 3px; }
+      .header-badge { font-size: 8px; padding: 1px 6px; }
+
+      /* Two-column day grid */
+      #schedule-container {
+        padding: 8px 0 0;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 7px;
+        align-items: start;
+      }
+
+      /* Day cards */
+      .day-card {
+        box-shadow: none;
+        border: 1px solid #d1d5db;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
       .day-card.collapsed .day-body { display: block !important; }
-      .day-header, .event-row.race, .championship-badge, .schedule-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      #schedule-container { padding: 6px; gap: 8px; }
-      .event-row { padding: 7px 14px; }
-      .toggle-pill { display: none; }
+
+      /* Day header */
+      .day-header {
+        padding: 6px 10px;
+        cursor: default;
+      }
+      .day-name { font-size: 11px; letter-spacing: 0.03em; }
+      .day-date { font-size: 9px; }
+      .championship-badge { font-size: 7px; padding: 2px 6px; }
+
+      /* Event rows — single column, very compact */
+      .event-row {
+        grid-template-columns: 100px 1fr;
+        padding: 4px 10px;
+        border-left-width: 2px;
+      }
+      .event-row:not(:last-child) { border-bottom: 1px solid #f1f5f9; }
+      .event-time { font-size: 9px; padding-right: 6px; }
+      .event-name { font-size: 10px; }
+      .event-row.race .event-name { font-size: 10px; }
+      .event-sponsor { font-size: 9px; margin-top: 1px; }
+      .event-classes { font-size: 9px; margin-top: 1px; }
+      .event-location { font-size: 9px; margin-top: 1px; }
+      .event-location::before { font-size: 8px; }
+      .race-badge { font-size: 7px; padding: 1px 4px; }
+
+      /* Race section header */
+      .race-section-header { padding: 3px 10px; }
+      .race-section-label { font-size: 8px; }
+
+      /* Disclaimer */
+      .disclaimer { margin: 6px 0 0; padding: 5px 10px; font-size: 9px; }
+
+      /* Links plain in print */
+      a { color: inherit !important; text-decoration: none !important; }
     }
   </style>
 </head>
