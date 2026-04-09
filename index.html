@@ -381,80 +381,173 @@
       #schedule-container { padding: 10px; gap: 10px; }
     }
 
-    /* PRINT */
+    /* PRINT — standalone document, independent of screen styles */
     @media print {
-      @page { margin: 0.55in 0.5in; size: letter portrait; }
+      @page { margin: 0.6in 0.55in; size: letter portrait; }
 
-      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      /* Reset everything to clean print defaults */
+      *, *::before, *::after {
+        box-shadow: none !important;
+        text-shadow: none !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
 
-      body { background: #fff; font-size: 10px; }
+      body {
+        background: #fff !important;
+        color: #000 !important;
+        font-family: 'Inter', Arial, sans-serif !important;
+        font-size: 9.5pt !important;
+        line-height: 1.35 !important;
+      }
 
-      /* Hide all interactive / screen-only elements */
-      .quick-nav, .footer-btns, .refresh-btn, .header-actions,
-      #loading-state, #error-state, .modal-overlay,
-      .toggle-pill, .schedule-footer { display: none !important; }
+      /* Hide all screen-only chrome */
+      .quick-nav, .schedule-header, .footer-btns, .refresh-btn,
+      .header-actions, #loading-state, #error-state,
+      .modal-overlay, .toggle-pill, .schedule-footer,
+      .disclaimer { display: none !important; }
 
       .page-wrap { max-width: 100%; padding: 0; }
 
-      /* Compact print header */
-      .schedule-header { padding: 10px 14px 9px; }
-      .logos { display: none; }
-      .header-eyebrow { font-size: 8px; }
-      .header-title { font-size: 14px; }
-      .header-subtitle { font-size: 9px; margin-top: 3px; }
-      .header-badge { font-size: 8px; padding: 1px 6px; }
+      /* Print-only masthead */
+      #schedule-container::before {
+        content: "XINSURANCE GREAT LAKES GRAND PRIX  ·  OFFICIAL SCHEDULE  ·  JULY 27 – AUGUST 2, 2026  ·  MICHIGAN CITY, INDIANA";
+        display: block;
+        font-size: 7pt;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #555;
+        border-bottom: 1.5pt solid #000;
+        padding-bottom: 5pt;
+        margin-bottom: 10pt;
+      }
 
       /* Two-column day grid */
       #schedule-container {
-        padding: 8px 0 0;
+        padding: 0 !important;
         display: grid !important;
         grid-template-columns: 1fr 1fr;
-        gap: 7px;
+        gap: 10pt;
         align-items: start;
       }
 
-      /* Day cards */
+      /* Day card — plain bordered box */
       .day-card {
-        box-shadow: none;
-        border: 1px solid #d1d5db;
+        background: #fff !important;
+        border: 1pt solid #ccc !important;
+        border-radius: 0 !important;
         break-inside: avoid;
         page-break-inside: avoid;
       }
       .day-card.collapsed .day-body { display: block !important; }
 
-      /* Day header */
+      /* Day header — bold text on white, thick top border by type */
       .day-header {
-        padding: 6px 10px;
-        cursor: default;
+        background: #fff !important;
+        color: #000 !important;
+        padding: 5pt 8pt !important;
+        border-bottom: 1pt solid #ccc !important;
+        display: flex !important;
+        align-items: baseline !important;
+        gap: 6pt !important;
+        cursor: default !important;
       }
-      .day-name { font-size: 11px; letter-spacing: 0.03em; }
-      .day-date { font-size: 9px; }
-      .championship-badge { font-size: 7px; padding: 2px 6px; }
+      .day-name {
+        font-size: 11pt !important;
+        font-weight: 900 !important;
+        letter-spacing: 0.04em !important;
+        text-transform: uppercase !important;
+        color: #000 !important;
+      }
+      .day-date {
+        font-size: 8pt !important;
+        font-weight: 400 !important;
+        color: #555 !important;
+      }
+      .championship-badge {
+        font-size: 7pt !important;
+        font-weight: 800 !important;
+        background: #000 !important;
+        color: #fff !important;
+        padding: 1pt 5pt !important;
+        border-radius: 0 !important;
+        letter-spacing: 0.06em !important;
+        margin-left: auto !important;
+      }
+      .day-header-right { margin-left: auto; }
 
-      /* Event rows — single column, very compact */
+      /* Event rows */
+      .events-list { padding: 0 !important; }
       .event-row {
-        grid-template-columns: 100px 1fr;
-        padding: 4px 10px;
-        border-left-width: 2px;
+        display: grid !important;
+        grid-template-columns: 78pt 1fr !important;
+        padding: 3.5pt 8pt !important;
+        border-left: 2.5pt solid transparent !important;
+        background: #fff !important;
+        cursor: default !important;
       }
-      .event-row:not(:last-child) { border-bottom: 1px solid #f1f5f9; }
-      .event-time { font-size: 9px; padding-right: 6px; }
-      .event-name { font-size: 10px; }
-      .event-row.race .event-name { font-size: 10px; }
-      .event-sponsor { font-size: 9px; margin-top: 1px; }
-      .event-classes { font-size: 9px; margin-top: 1px; }
-      .event-location { font-size: 9px; margin-top: 1px; }
-      .event-location::before { font-size: 8px; }
-      .race-badge { font-size: 7px; padding: 1px 4px; }
+      .event-row:not(:last-child) { border-bottom: 0.5pt solid #eee !important; }
 
-      /* Race section header */
-      .race-section-header { padding: 3px 10px; }
-      .race-section-label { font-size: 8px; }
+      /* Type accent — left border color only, no background */
+      .event-row.race     { border-left-color: #000 !important; }
+      .event-row.official { border-left-color: #888 !important; }
+      .event-row.social   { border-left-color: #bbb !important; }
+      .event-row.ops      { border-left-color: #ddd !important; }
 
-      /* Disclaimer */
-      .disclaimer { margin: 6px 0 0; padding: 5px 10px; font-size: 9px; }
+      .event-time {
+        font-size: 8pt !important;
+        font-weight: 600 !important;
+        color: #444 !important;
+        padding-right: 6pt !important;
+        padding-top: 0 !important;
+      }
+      .event-row.race .event-time { font-weight: 800 !important; color: #000 !important; }
 
-      /* Links plain in print */
+      .event-name {
+        font-size: 9pt !important;
+        font-weight: 500 !important;
+        color: #000 !important;
+        line-height: 1.3 !important;
+      }
+      .event-row.race .event-name { font-weight: 800 !important; font-size: 9pt !important; }
+
+      .event-sponsor {
+        font-size: 7.5pt !important;
+        color: #666 !important;
+        margin-top: 1pt !important;
+      }
+      .event-classes {
+        font-size: 7.5pt !important;
+        font-weight: 700 !important;
+        color: #000 !important;
+        margin-top: 1pt !important;
+      }
+      .event-location {
+        font-size: 7.5pt !important;
+        color: #555 !important;
+        margin-top: 1pt !important;
+      }
+      .event-location::before { content: '' !important; }
+
+      .race-badge { display: none !important; }
+
+      /* Race section divider */
+      .race-section-header {
+        background: #f4f4f4 !important;
+        border-left: none !important;
+        padding: 2.5pt 8pt !important;
+        border-top: 0.5pt solid #ccc !important;
+        border-bottom: 0.5pt solid #ccc !important;
+      }
+      .race-section-label {
+        font-size: 7pt !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.1em !important;
+        color: #000 !important;
+      }
+
+      /* Strip all links */
       a { color: inherit !important; text-decoration: none !important; }
     }
   </style>
