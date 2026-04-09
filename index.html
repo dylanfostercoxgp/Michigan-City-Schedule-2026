@@ -392,7 +392,7 @@ function parseCSV(text) {
 function groupByDay(rows) {
   const days = [], dayMap = new Map();
   rows.forEach(row => {
-    const [dayName, date, championship, raceDay, time, name, sponsor, location, type, details, url] = row;
+    const [dayName, date, championship, raceDay, time, name, sponsor, location, type, details, url, sponsorUrl, locationUrl] = row;
     if (!dayName || !date || !time || !name) return;
     const key = `${dayName}|${date}`;
     if (!dayMap.has(key)) {
@@ -408,6 +408,8 @@ function groupByDay(rows) {
       type: (type || 'ops').trim().toLowerCase(),
       classes: details ? details.trim() : null,
       url: url ? url.trim() : null,
+      sponsorUrl: sponsorUrl ? sponsorUrl.trim() : null,
+      locationUrl: locationUrl ? locationUrl.trim() : null,
     });
   });
   return days;
@@ -443,10 +445,10 @@ function buildQuickNav(schedule) {
 /* =============================================================
    RENDER: SPONSOR
 ============================================================= */
-function sponsorHTML(sponsor) {
+function sponsorHTML(sponsor, sponsorUrl) {
   if (!sponsor) return '';
   const clean = sponsor.replace(/^presented by\s*/i, '').trim();
-  const url = SPONSOR_LINKS[clean] || SPONSOR_LINKS[sponsor];
+  const url = sponsorUrl || SPONSOR_LINKS[clean] || SPONSOR_LINKS[sponsor];
   const display = url
     ? `<a href="${url}" target="_blank" rel="noopener">${sponsor}</a>`
     : sponsor;
@@ -468,14 +470,17 @@ function renderEvent(evt) {
     ? `<span class="event-name">${nameText}<span class="race-badge">RACE</span></span>`
     : `<span class="event-name">${nameText}</span>`;
 
-  const classesPart  = evt.classes  ? `<div class="event-classes">${evt.classes.replace(/\|/g,'<br>')}</div>` : '';
-  const locationPart = evt.location ? `<div class="event-location">${evt.location}</div>` : '';
+  const classesPart = evt.classes ? `<div class="event-classes">${evt.classes.replace(/\|/g,'<br>')}</div>` : '';
+  const locationText = evt.locationUrl
+    ? `<a href="${evt.locationUrl}" target="_blank" rel="noopener" class="event-link">${evt.location}</a>`
+    : evt.location;
+  const locationPart = evt.location ? `<div class="event-location">${locationText}</div>` : '';
 
   row.innerHTML = `
     <div class="event-time">${evt.time}</div>
     <div class="event-content">
       ${namePart}
-      ${sponsorHTML(evt.sponsor)}
+      ${sponsorHTML(evt.sponsor, evt.sponsorUrl)}
       ${classesPart}
       ${locationPart}
     </div>`;
