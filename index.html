@@ -830,13 +830,11 @@ function printSchedule() {
     return c;
   });
 
-  // Split cards between two columns by event count for visual balance
-  var counts = cleaned.map(function(c){ return c.querySelectorAll('.event-row').length; });
-  var total  = counts.reduce(function(a,b){ return a+b; }, 0);
-  var running = 0, splitAt = Math.ceil(cleaned.length / 2);
-  for (var i = 0; i < counts.length - 1; i++) {
-    running += counts[i];
-    if (running >= total / 2) { splitAt = i + 1; break; }
+  // Col 1 = Mon–Fri, Col 2 = Sat–Sun (split at the Saturday card)
+  var splitAt = Math.ceil(cleaned.length / 2); // fallback
+  for (var i = 0; i < cleaned.length; i++) {
+    var dn = cleaned[i].querySelector('.day-name');
+    if (dn && dn.textContent.trim().toLowerCase() === 'saturday') { splitAt = i; break; }
   }
 
   var col1 = cleaned.slice(0, splitAt).map(function(c){ return c.outerHTML; }).join('');
