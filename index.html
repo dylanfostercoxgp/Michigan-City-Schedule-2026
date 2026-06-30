@@ -822,12 +822,17 @@ function printSchedule() {
     return;
   }
 
-  // Clone, expand, strip unwanted elements from each card
-  var cleaned = cards.map(function(card) {
+  // Clone, expand, strip unwanted elements — only keep Thursday onward
+  var startDays = ['thursday','friday','saturday','sunday'];
+  var cleaned = [], started = false;
+  cards.forEach(function(card) {
+    var dn = card.querySelector('.day-name');
+    if (dn && startDays.indexOf(dn.textContent.trim().toLowerCase()) !== -1) started = true;
+    if (!started) return;
     var c = card.cloneNode(true);
     c.classList.remove('collapsed');
     c.querySelectorAll('.event-location,.event-sponsor,.race-pill,.toggle-chevron,.race-section-header').forEach(function(el){ el.remove(); });
-    return c;
+    cleaned.push(c);
   });
 
   // Col 1 = Mon–Fri, Col 2 = Sat–Sun (split at the Saturday card)
