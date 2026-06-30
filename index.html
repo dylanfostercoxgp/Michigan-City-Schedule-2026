@@ -379,79 +379,7 @@
       .race-day-tag { font-size: 9px; padding: 3px 8px; }
     }
 
-    /* PRINT — screen hides the JS-built print container */
-    #print-layout { display: none; }
-
-    @media print {
-      @page { size: letter portrait; margin: 0.2in 0.25in; }
-      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-      body { margin: 0; background: #fff; }
-
-      /* Hide the live page; show only the JS-built print layout */
-      .page-wrap, .modal-overlay { display: none !important; }
-      #print-layout { display: block !important; font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif; }
-
-      /* Print header */
-      #print-layout .schedule-header {
-        display: flex; align-items: center; gap: 8pt;
-        padding: 4pt 8pt 5pt; background: #fff;
-        border-bottom: 1.5pt solid #E11D48;
-      }
-      #print-layout .schedule-header::after { display: none; }
-      #print-layout .logo-glgp { height: 26pt; width: auto; object-fit: contain; }
-      #print-layout .header-titles { flex: 1; }
-      #print-layout .header-eyebrow { font-size: 6pt; color: #E11D48; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 2pt; line-height: 1; }
-      #print-layout .header-title { font-size: 11pt; font-weight: 700; color: #1D1D1F; letter-spacing: -0.015em; line-height: 1.1; }
-      #print-layout .header-sub { font-size: 7pt; color: #6E6E73; margin-top: 2pt; }
-
-      /* 2-column grid — portrait columns are ~270pt each */
-      #print-layout .print-grid {
-        columns: 2; column-gap: 8pt; column-fill: balance;
-        padding: 4pt; display: block;
-      }
-
-      /* Day cards — never break mid-card across columns */
-      #print-layout .day-card {
-        border: 0.75pt solid #ccc; border-radius: 3pt;
-        margin-bottom: 4pt; overflow: hidden;
-        break-inside: avoid; page-break-inside: avoid;
-        display: inline-block; width: 100%;
-      }
-
-      /* Day header */
-      #print-layout .day-header {
-        display: flex; align-items: center; justify-content: space-between; gap: 5pt;
-        padding: 3pt 6pt; background: #1D1D1F !important;
-      }
-      #print-layout .day-header-left { display: flex; align-items: baseline; gap: 5pt; flex-wrap: wrap; }
-      #print-layout .day-name { font-size: 9pt; font-weight: 800; color: #fff !important; line-height: 1.1; }
-      #print-layout .day-date { font-size: 7.5pt; color: rgba(255,255,255,0.6) !important; font-weight: 400; }
-      #print-layout .day-header-right { display: flex; align-items: center; gap: 4pt; }
-      #print-layout .race-day-tag {
-        display: inline-flex; align-items: center; gap: 3pt;
-        font-size: 6pt; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-        color: #fff !important; background: #E11D48 !important;
-        padding: 1pt 4pt; border-radius: 999pt;
-      }
-      #print-layout .race-day-dot { display: inline-block; width: 3pt; height: 3pt; border-radius: 50%; background: #fff !important; }
-
-      /* Event rows */
-      #print-layout .day-body { border-top: 0.75pt solid #ddd; }
-      #print-layout .event-row {
-        display: grid; grid-template-columns: 68pt 1fr;
-        gap: 3pt; padding: 2.5pt 5pt;
-        border-bottom: 0.5pt solid #F0F0F0;
-        border-left: 2pt solid transparent;
-        align-items: baseline;
-      }
-      #print-layout .event-row:last-child { border-bottom: none; }
-      #print-layout .event-time { font-size: 7pt; color: #6E6E73; line-height: 1.2; }
-      #print-layout .event-name { font-size: 8pt; color: #1D1D1F; line-height: 1.2; font-weight: 500; }
-      #print-layout .event-row.race { border-left-color: #E11D48 !important; }
-      #print-layout .event-row.race .event-time { color: #E11D48 !important; font-weight: 700; }
-      #print-layout .event-row.race .event-name { color: #E11D48 !important; font-weight: 800; }
-      #print-layout .event-classes { font-size: 6.5pt; color: #E11D48; margin-top: 0.5pt; line-height: 1.1; }
-    }
+    /* Print is handled by printSchedule() opening a clean new window — no @media print needed here */
   </style>
 </head>
 <body>
@@ -508,7 +436,7 @@
       <a href="https://raceworldoffshore.com/michigan-city/" target="_blank">raceworldoffshore.com/michigan-city</a>
     </div>
     <div class="footer-btns">
-      <button class="btn-print" onclick="window.print()">Print Schedule</button>
+      <button class="btn-print" onclick="printSchedule()">Print Schedule</button>
     </div>
   </footer>
 
@@ -882,53 +810,89 @@ modalSheet.addEventListener('touchend', e => {
 }, { passive: true });
 
 /* =============================================================
-   PRINT — build a clean layout before Chrome renders the preview
-   Removes location, sponsor, decorative elements physically from
-   a cloned DOM so CSS hiding quirks can't interfere.
+   PRINT — opens a fresh window with self-contained HTML+CSS.
+   Zero dependency on the parent page. No blank pages possible.
 ============================================================= */
-let _printEl = null;
-
-window.addEventListener('beforeprint', function () {
-  if (_printEl) { _printEl.remove(); _printEl = null; }
-
+function printSchedule() {
   const cards = Array.from(document.querySelectorAll('#schedule-container .day-card'));
-  if (!cards.length) return;
-
-  _printEl = document.createElement('div');
-  _printEl.id = 'print-layout';
-
-  // ---- Slim header (clone, strip refresh button) ----
-  const hdr = document.querySelector('.schedule-header');
-  if (hdr) {
-    const h = hdr.cloneNode(true);
-    h.querySelectorAll('.header-right, .last-updated').forEach(el => el.remove());
-    _printEl.appendChild(h);
+  if (!cards.length) {
+    alert('Schedule is still loading — please wait a moment and try again.');
+    return;
   }
 
-  // ---- 2-column container ----
-  const grid = document.createElement('div');
-  grid.className = 'print-grid';
-
-  // Clone and clean every day card
-  const cleaned = cards.map(card => {
+  // Clone cards, expand all, physically remove unwanted elements
+  const cardsHTML = cards.map(function(card) {
     const c = card.cloneNode(true);
     c.classList.remove('collapsed');
-    // Physically remove elements we don't want on the printed page
     c.querySelectorAll(
-      '.event-location, .event-sponsor, .race-pill, ' +
-      '.toggle-chevron, .race-section-header'
-    ).forEach(el => el.remove());
-    return c;
-  });
+      '.event-location, .event-sponsor, .race-pill, .toggle-chevron, .race-section-header'
+    ).forEach(function(el) { el.remove(); });
+    return c.outerHTML;
+  }).join('');
 
-  cleaned.forEach(c => grid.appendChild(c));
-  _printEl.appendChild(grid);
-  document.body.appendChild(_printEl);
-});
+  const css = [
+    '@page{size:letter portrait;margin:.2in .25in}',
+    '*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}',
+    'body{font-family:-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;background:#fff}',
+    /* header */
+    '.ph{display:flex;align-items:center;gap:8pt;padding:4pt 6pt 5pt;border-bottom:1.5pt solid #E11D48;margin-bottom:4pt}',
+    '.ph img{height:26pt;width:auto;object-fit:contain}',
+    '.pe{font-size:6pt;color:#E11D48;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:2pt}',
+    '.pt{font-size:11pt;font-weight:700;color:#1D1D1F;line-height:1.1}',
+    '.ps{font-size:7pt;color:#6E6E73;margin-top:2pt}',
+    /* 2-col grid */
+    '.pg{columns:2;column-gap:8pt;column-fill:balance;padding:3pt}',
+    /* day cards */
+    '.day-card{border:.75pt solid #ccc;border-radius:3pt;margin-bottom:4pt;overflow:hidden;break-inside:avoid;page-break-inside:avoid;display:inline-block;width:100%}',
+    '.day-header{display:flex;align-items:center;justify-content:space-between;gap:5pt;padding:3pt 6pt;background:#1D1D1F}',
+    '.day-header-left{display:flex;align-items:baseline;gap:5pt}',
+    '.day-name{font-size:9pt;font-weight:800;color:#fff;line-height:1.1}',
+    '.day-date{font-size:7.5pt;color:rgba(255,255,255,.6);font-weight:400}',
+    '.day-header-right{display:flex;align-items:center;gap:4pt}',
+    '.race-day-tag{display:inline-flex;align-items:center;gap:3pt;font-size:6pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:#E11D48;padding:1pt 4pt;border-radius:999pt;white-space:nowrap}',
+    '.race-day-dot{width:3pt;height:3pt;border-radius:50%;background:#fff;display:inline-block;flex-shrink:0}',
+    /* event rows */
+    '.day-body{border-top:.75pt solid #ddd}',
+    '.day-card.collapsed .day-body{display:block}',
+    '.events-list{}',
+    '.event-row{display:grid;grid-template-columns:70pt 1fr;gap:3pt;padding:2.5pt 5pt;border-bottom:.5pt solid #f0f0f0;border-left:2pt solid transparent;align-items:baseline}',
+    '.event-row:last-child{border-bottom:none}',
+    '.event-time{font-size:7pt;color:#6E6E73;line-height:1.2}',
+    '.event-content{min-width:0}',
+    '.event-name{font-size:8pt;color:#1D1D1F;line-height:1.2;font-weight:500}',
+    '.event-row.race{border-left-color:#E11D48}',
+    '.event-row.race .event-time{color:#E11D48;font-weight:700}',
+    '.event-row.race .event-name{color:#E11D48;font-weight:800}',
+    '.event-classes{font-size:6.5pt;color:#E11D48;margin-top:.5pt;line-height:1.1}',
+    /* strip any links of colour/underline */
+    'a{color:inherit;text-decoration:none}'
+  ].join('');
 
-window.addEventListener('afterprint', function () {
-  if (_printEl) { _printEl.remove(); _printEl = null; }
-});
+  const html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">' +
+    '<title>2026 XINSURANCE Great Lakes Grand Prix – Schedule</title>' +
+    '<style>' + css + '</style></head><body>' +
+    '<div class="ph">' +
+      '<img src="https://raceworldoffshore.com/wp-content/uploads/2024/12/2024_GreatLakesGrandPrixLogo-1536x1130-1.png" alt="GLGP" onerror="this.style.display=\'none\'">' +
+      '<div>' +
+        '<div class="pe">2026 Schedule</div>' +
+        '<div class="pt">XINSURANCE Great Lakes Grand Prix</div>' +
+        '<div class="ps">July 27–August 2, 2026 · Michigan City, Indiana</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="pg">' + cardsHTML + '</div>' +
+    '</body></html>';
+
+  const w = window.open('', '_blank', 'width=860,height=1120');
+  if (!w) {
+    alert('Popup blocked. Please allow popups for this site and try again.');
+    return;
+  }
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+  // Give the browser 600ms to lay out and load the logo before printing
+  setTimeout(function() { w.focus(); w.print(); }, 600);
+}
 </script>
 </body>
 </html>
