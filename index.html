@@ -381,7 +381,7 @@
 
     /* PRINT */
     @media print {
-      @page { size: letter portrait; margin: 0.3in 0.35in; }
+      @page { size: letter landscape; margin: 0.25in 0.3in; }
       * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
       body { background: #fff; margin: 0; }
 
@@ -397,19 +397,19 @@
         box-shadow: none; border-bottom: 1.5pt solid #E11D48; flex-wrap: nowrap;
       }
       .schedule-header::after { display: none; }
-      .logo-glgp { height: 26pt; }
-      .header-eyebrow { font-size: 6pt; margin-bottom: 2pt; }
-      .header-title { font-size: 11pt; }
-      .header-sub { font-size: 7pt; margin-top: 2pt; }
+      .logo-glgp { height: 28pt; }
+      .header-eyebrow { font-size: 6.5pt; margin-bottom: 2pt; }
+      .header-title { font-size: 12pt; }
+      .header-sub { font-size: 7.5pt; margin-top: 2pt; }
 
-      /* 2-column flow */
+      /* 2-column flow — landscape gives ~5" per column, plenty of room */
       .page-wrap { max-width: 100%; padding: 0; }
       #schedule-container {
-        columns: 2; column-gap: 10pt;
+        columns: 2; column-gap: 12pt;
         padding: 6pt; display: block;
       }
 
-      /* Day cards — stay together, never split across columns */
+      /* Day cards — never split mid-card across columns */
       .day-card {
         box-shadow: none; border: 0.75pt solid #ccc;
         border-radius: 4pt; margin-bottom: 5pt;
@@ -426,10 +426,10 @@
       }
       .day-header:hover { background: #1D1D1F !important; }
       .day-header-left { gap: 6pt; }
-      .day-name { font-size: 9.5pt; font-weight: 800; color: #fff !important; }
-      .day-date { font-size: 8pt; color: rgba(255,255,255,0.65) !important; }
+      .day-name { font-size: 10pt; font-weight: 800; color: #fff !important; }
+      .day-date { font-size: 8.5pt; color: rgba(255,255,255,0.65) !important; }
       .race-day-tag {
-        font-size: 6.5pt; padding: 1.5pt 5pt;
+        font-size: 7pt; padding: 1.5pt 5pt;
         background: #E11D48 !important; color: #fff !important;
       }
       .race-day-dot { background: #fff !important; width: 4pt; height: 4pt; }
@@ -437,23 +437,20 @@
       /* Event rows */
       .day-body { border-top: 0.75pt solid #ddd; }
       .event-row {
-        grid-template-columns: 76pt 1fr;
-        gap: 5pt; padding: 3pt 7pt;
+        grid-template-columns: 80pt 1fr;
+        gap: 5pt; padding: 3.5pt 7pt;
         border-bottom: 0.5pt solid #EFEFEF;
         border-left-width: 2pt; cursor: default; transition: none;
         align-items: baseline;
       }
       .event-row:hover { background: transparent !important; }
       .event-row:last-child { border-bottom: none; }
-      .event-time {
-        font-size: 7.5pt; color: #6E6E73;
-        line-height: 1.3; font-weight: 400;
-      }
-      .event-name { font-size: 8.5pt; color: #1D1D1F; line-height: 1.3; font-weight: 500; }
+      .event-time { font-size: 8pt; color: #6E6E73; line-height: 1.3; }
+      .event-name { font-size: 9pt; color: #1D1D1F; line-height: 1.3; font-weight: 500; }
       .event-row.race { border-left-color: #E11D48 !important; }
       .event-row.race .event-time { color: #E11D48; font-weight: 700; }
       .event-row.race .event-name { color: #E11D48; font-weight: 800; }
-      .event-classes { font-size: 7pt; color: #E11D48; margin-top: 1pt; line-height: 1.2; }
+      .event-classes { font-size: 7.5pt; color: #E11D48; margin-top: 1pt; line-height: 1.2; }
     }
   </style>
 </head>
