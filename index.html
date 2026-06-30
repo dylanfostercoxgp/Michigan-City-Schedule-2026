@@ -4,394 +4,393 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>2026 XINSURANCE Great Lakes Grand Prix – Official Race Schedule</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --dark:        #0B1E3D;
-      --dark-hover:  #112850;
-      --sky:         #0EA5E9;
-      --sky-light:   #F0F9FF;
-      --red:         #E11D48;
-      --red-light:   #FFF1F2;
-      --amber:       #F59E0B;
-      --amber-light: #FFFBEB;
-      --white:       #ffffff;
-      --gray-50:     #F8FAFC;
-      --gray-100:    #F1F5F9;
-      --gray-200:    #E2E8F0;
-      --gray-300:    #CBD5E1;
-      --gray-400:    #94A3B8;
-      --gray-500:    #64748B;
-      --gray-700:    #334155;
-      --gray-900:    #0F172A;
-      --font:        'Inter', system-ui, -apple-system, sans-serif;
-      --shadow-sm:   0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-md:   0 4px 16px rgba(0,0,0,0.08);
-      --radius:      12px;
+      --bg:        #F5F5F7;
+      --surface:   #FFFFFF;
+      --surface-2: #FAFAFB;
+      --border:    #E5E5EA;
+      --border-2:  #EFEFF2;
+      --text:      #1D1D1F;
+      --text-2:    #4A4A4E;
+      --text-3:    #6E6E73;
+      --text-4:    #AEAEB2;
+      --red:       #E11D48;
+      --red-soft:  #FDEEF1;
+      --font: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+      --radius:    14px;
+      --radius-sm: 10px;
     }
 
     html { scroll-behavior: smooth; }
     body {
       font-family: var(--font);
-      background: var(--gray-100);
-      color: var(--gray-900);
+      background: var(--bg);
+      color: var(--text);
       font-size: 14px;
-      line-height: 1.5;
+      line-height: 1.45;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* WRAPPER */
-    .page-wrap { max-width: 820px; margin: 0 auto; padding: 0 0 56px; }
+    .page-wrap { max-width: 760px; margin: 0 auto; padding: 0 0 48px; }
 
     /* HEADER */
     .schedule-header {
-      background: var(--dark);
-      color: var(--white);
-      padding: 28px 24px 22px;
+      background: var(--surface);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
       position: relative;
-      overflow: hidden;
     }
     .schedule-header::after {
       content: '';
       position: absolute;
-      bottom: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--red) 0%, var(--red) 40%, var(--sky) 40%, var(--sky) 100%);
+      bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--red) 0%, var(--red) 40%, #0EA5E9 40%, #0EA5E9 100%);
+      opacity: 0.85;
     }
-    .header-inner { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .logos { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
-    .logo-glgp { height: 72px; width: auto; object-fit: contain; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35)); }
-    .header-text { flex: 1; min-width: 200px; }
-    .header-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sky); margin-bottom: 4px; }
-    .header-title { font-size: clamp(18px, 4vw, 26px); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; color: #fff; text-transform: uppercase; }
-    .header-subtitle { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.6); margin-top: 7px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .header-badge { background: var(--red); color: #fff; font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 9px; border-radius: 20px; }
-    .header-actions { display: flex; align-items: center; gap: 10px; margin-top: 11px; flex-wrap: wrap; }
+    .header-logos { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .logo-glgp { height: 50px; width: auto; object-fit: contain; }
+
+    .header-titles { flex: 1; min-width: 0; }
+    .header-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--red); line-height: 1; margin-bottom: 4px;
+    }
+    .header-title {
+      font-size: clamp(14px, 3.2vw, 17px); font-weight: 700;
+      letter-spacing: -0.015em; line-height: 1.2; color: var(--text);
+    }
+    .header-sub {
+      font-size: 11px; color: var(--text-3); font-weight: 500;
+      margin-top: 3px; letter-spacing: 0.01em;
+    }
+
+    .header-right {
+      flex-shrink: 0; display: flex; align-items: center; gap: 8px;
+    }
     .refresh-btn {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 999px;
+      padding: 6px 12px; font-family: var(--font); font-size: 11px; font-weight: 500;
+      color: var(--text-2); cursor: pointer;
       display: inline-flex; align-items: center; gap: 5px;
-      padding: 5px 13px; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8);
-      border: 1px solid rgba(255,255,255,0.18); border-radius: 20px;
-      font-family: var(--font); font-size: 11px; font-weight: 600;
-      cursor: pointer; transition: background 0.15s; letter-spacing: 0.04em; text-transform: uppercase;
+      transition: background 0.15s, border-color 0.15s;
     }
-    .refresh-btn:hover { background: rgba(255,255,255,0.18); }
+    .refresh-btn:hover { background: var(--surface); border-color: var(--text-4); }
     @keyframes spin { to { transform: rotate(360deg); } }
     .refresh-btn.spinning #refresh-icon { animation: spin 0.8s linear infinite; }
-    .last-updated { font-size: 10px; color: rgba(255,255,255,0.38); }
+    .last-updated { font-size: 10px; color: var(--text-4); white-space: nowrap; }
 
     /* QUICK NAV */
     .quick-nav {
-      background: var(--white); border-bottom: 1px solid var(--gray-200);
-      padding: 0 12px; overflow-x: auto; white-space: nowrap;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: saturate(180%) blur(14px);
+      -webkit-backdrop-filter: saturate(180%) blur(14px);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto; white-space: nowrap;
       -webkit-overflow-scrolling: touch; scrollbar-width: none;
-      position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow-sm);
+      position: sticky; top: 0; z-index: 100;
     }
     .quick-nav::-webkit-scrollbar { display: none; }
-    .quick-nav-inner { display: inline-flex; gap: 2px; padding: 7px 0; }
+    .quick-nav-inner { display: inline-flex; padding: 0 10px; }
     .nav-btn {
+      background: transparent; border: none; cursor: pointer;
+      font-family: var(--font); padding: 10px 14px; color: var(--text-3);
       display: inline-flex; flex-direction: column; align-items: center;
-      padding: 6px 13px; border-radius: 8px; border: none;
-      background: transparent; cursor: pointer; font-family: var(--font);
-      transition: background 0.15s; text-decoration: none; color: var(--gray-700);
+      gap: 2px; transition: color 0.12s; position: relative;
     }
-    .nav-btn:hover { background: var(--gray-100); }
+    .nav-btn:hover { color: var(--text); }
     .nav-btn.race-day { color: var(--red); }
-    .nav-btn-day  { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; }
-    .nav-btn-date { font-size: 10px; color: var(--gray-400); }
-    .nav-race-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--red); margin-top: 2px; }
+    .nav-btn-day { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+    .nav-btn-date { font-size: 10px; color: var(--text-4); font-weight: 500; }
+    .nav-btn.race-day .nav-btn-date { color: var(--red); opacity: 0.75; }
+    .nav-race-dot {
+      position: absolute; top: 6px; right: 8px;
+      width: 5px; height: 5px; border-radius: 50%; background: var(--red);
+    }
 
     /* LOADING */
     #loading-state {
-      padding: 60px 20px; text-align: center;
-      display: flex; flex-direction: column; align-items: center; gap: 14px;
+      padding: 80px 20px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
     }
-    .loading-logo { width: 56px; height: 56px; animation: pulse 1.4s ease-in-out infinite; }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.4; transform: scale(0.94); }
-    }
-    .loading-text { font-size: 14px; font-weight: 600; color: var(--gray-500); }
-    .loading-sub  { font-size: 12px; color: var(--gray-400); }
+    .loading-logo { width: 44px; height: 44px; opacity: 0.5; animation: pulse 1.4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 0.2; transform: scale(0.94); } }
+    .loading-text { font-size: 13px; font-weight: 500; color: var(--text-3); }
+    .loading-sub { font-size: 11px; color: var(--text-4); }
 
     /* ERROR */
     #error-state {
-      display: none; margin: 24px 16px; padding: 22px 20px;
-      background: #FFF1F2; border: 1px solid #FECDD3; border-radius: var(--radius);
-      text-align: center;
+      display: none; margin: 16px; padding: 22px 20px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); text-align: center;
     }
-    .error-title { font-size: 15px; font-weight: 700; color: var(--red); margin-bottom: 6px; }
-    .error-sub   { font-size: 13px; color: var(--gray-500); }
+    .error-title { font-size: 14px; font-weight: 600; color: var(--red); margin-bottom: 6px; }
+    .error-sub { font-size: 12px; color: var(--text-2); line-height: 1.5; }
     .error-retry {
-      display: inline-block; margin-top: 14px; padding: 9px 22px;
-      background: var(--red); color: #fff; border: none; border-radius: 8px;
-      font-family: var(--font); font-size: 12px; font-weight: 700;
-      cursor: pointer; letter-spacing: 0.05em; text-transform: uppercase;
+      margin-top: 14px; padding: 8px 18px;
+      background: var(--text); color: #fff; border: none; border-radius: 999px;
+      font-family: var(--font); font-size: 12px; font-weight: 500; cursor: pointer;
     }
 
-    /* SCHEDULE CONTAINER */
-    #schedule-container { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+    /* SCHEDULE LIST */
+    #schedule-container { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
 
-    /* DAY CARD */
     .day-card {
-      background: var(--white); border-radius: var(--radius);
-      box-shadow: var(--shadow-sm); overflow: hidden;
-      border: 1px solid var(--gray-200);
-      transition: box-shadow 0.15s;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; transition: border-color 0.15s;
     }
-    .day-card:hover { box-shadow: var(--shadow-md); }
+    .day-card:hover { border-color: var(--text-4); }
 
     .day-header {
-      background: var(--dark); color: var(--white);
-      padding: 15px 18px; display: flex; align-items: center;
-      justify-content: space-between; gap: 12px;
-      cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent;
-      transition: background 0.15s;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; padding: 14px 18px; cursor: pointer;
+      user-select: none; -webkit-tap-highlight-color: transparent; transition: background 0.12s;
     }
-    .day-header:hover { background: var(--dark-hover); }
+    .day-header:hover { background: var(--surface-2); }
 
-    .day-header-left { display: flex; flex-direction: column; }
-    .day-name { font-size: clamp(15px, 3vw, 18px); font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.1; }
-    .day-date { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.55); margin-top: 2px; }
-
-    .day-header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-
-    .championship-badge {
-      background: var(--red); color: #fff;
-      font-size: 9px; font-weight: 800; letter-spacing: 0.07em;
-      text-transform: uppercase; padding: 4px 10px; border-radius: 20px;
-      line-height: 1.3; text-align: center;
+    .day-header-left {
+      display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; min-width: 0;
     }
+    .day-name { font-size: 17px; font-weight: 700; letter-spacing: -0.015em; color: var(--text); line-height: 1.1; }
+    .day-date { font-size: 13px; font-weight: 400; color: var(--text-3); }
 
-    .toggle-pill {
+    .day-header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+    .race-day-tag {
       display: inline-flex; align-items: center; gap: 5px;
-      background: rgba(255,255,255,0.13); border: 1px solid rgba(255,255,255,0.18);
-      padding: 5px 12px; border-radius: 20px;
-      font-size: 10px; font-weight: 800; letter-spacing: 0.08em;
-      text-transform: uppercase; color: rgba(255,255,255,0.88);
-      transition: background 0.15s;
-      white-space: nowrap;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--red); background: var(--red-soft); padding: 3px 9px;
+      border-radius: 999px; white-space: nowrap;
     }
-    .day-header:hover .toggle-pill { background: rgba(255,255,255,0.22); }
-    .toggle-chevron { transition: transform 0.22s ease; flex-shrink: 0; }
+    .race-day-tag .race-day-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--red); }
 
-    /* Collapsed state */
-    .day-card.collapsed .day-body { display: none; }
+    .toggle-chevron {
+      color: var(--text-4); flex-shrink: 0; transition: transform 0.25s ease;
+    }
     .day-card.collapsed .toggle-chevron { transform: rotate(-90deg); }
-    .pill-hide { display: inline; }
-    .pill-show { display: none; }
-    .day-card.collapsed .pill-hide { display: none; }
-    .day-card.collapsed .pill-show { display: inline; }
+    .day-card.collapsed .day-body { display: none; }
 
     /* EVENT ROWS */
-    .events-list { padding: 4px 0; }
+    .day-body { border-top: 1px solid var(--border); background: var(--surface); }
+
     .event-row {
-      display: grid; grid-template-columns: 140px 1fr;
-      padding: 10px 18px; border-left: 3px solid transparent;
-      transition: background 0.1s; align-items: start;
+      display: grid; grid-template-columns: 120px 1fr;
+      gap: 14px; padding: 12px 18px; align-items: baseline;
+      border-bottom: 1px solid var(--border-2);
+      border-left: 2px solid transparent;
+      transition: background 0.1s;
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
     }
-    .event-row:not(:last-child) { border-bottom: 1px solid var(--gray-100); }
-    .event-row:hover { background: var(--gray-50) !important; }
+    .event-row:last-child { border-bottom: none; }
+    .event-row:hover { background: var(--surface-2); }
+    .event-row:active { opacity: 0.85; }
 
-    .event-row.race     { background: var(--red-light);   border-left-color: var(--red); }
-    .event-row.official { background: var(--sky-light);   border-left-color: var(--sky); }
-    .event-row.social   { background: var(--amber-light); border-left-color: var(--amber); }
-    .event-row.ops      { border-left-color: var(--gray-200); }
+    .event-row.race { border-left-color: var(--red); }
+    .event-row.race .event-time { color: var(--red); font-weight: 700; }
+    .event-row.race .event-name { font-weight: 700; color: var(--text); }
 
-    .event-time { font-size: 12px; font-weight: 600; color: var(--gray-400); padding-top: 1px; padding-right: 12px; letter-spacing: -0.01em; line-height: 1.4; }
-    .event-row.race     .event-time { color: var(--red);   font-weight: 700; }
-    .event-row.official .event-time { color: var(--sky);   font-weight: 600; }
-    .event-row.social   .event-time { color: var(--amber); font-weight: 600; }
-
-    .event-name { font-size: 13px; font-weight: 500; color: var(--gray-900); line-height: 1.4; }
-    .event-row.race .event-name { font-weight: 800; font-size: 14px; }
-
-    .event-sponsor { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
-    .event-sponsor a { color: var(--sky); text-decoration: none; font-weight: 500; }
-    .event-sponsor a:hover { text-decoration: underline; }
-    .event-link { color: inherit; text-decoration: underline; text-decoration-color: rgba(0,0,0,0.25); text-underline-offset: 2px; }
-    .event-link:hover { text-decoration-color: var(--sky); color: var(--sky); }
-    .event-row.race .event-link:hover { color: var(--red); text-decoration-color: var(--red); }
-
-    .event-classes { font-size: 12px; font-weight: 600; color: var(--red); margin-top: 3px; line-height: 1.5; }
-    .event-location { font-size: 11px; color: var(--gray-500); margin-top: 3px; display: flex; align-items: flex-start; gap: 4px; }
-    .event-location::before { content: '📍'; font-size: 10px; flex-shrink: 0; margin-top: 1px; }
-
-    .race-badge {
-      display: inline-block; background: var(--red); color: #fff;
-      font-size: 9px; font-weight: 800; letter-spacing: 0.08em;
-      text-transform: uppercase; padding: 2px 6px; border-radius: 4px;
-      margin-left: 6px; vertical-align: middle;
+    .event-time {
+      font-size: 12px; font-weight: 500; color: var(--text-3);
+      letter-spacing: -0.005em; font-variant-numeric: tabular-nums; line-height: 1.35;
     }
+    .event-name { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.35; }
+
+    .race-pill {
+      display: inline-block; font-size: 9px; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--red); background: var(--red-soft);
+      padding: 2px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle;
+    }
+
+    .event-sponsor { font-size: 12px; color: var(--text-3); margin-top: 3px; }
+    .event-sponsor a {
+      color: var(--text-2); text-decoration: none;
+      border-bottom: 1px solid var(--border); transition: color 0.12s, border-color 0.12s;
+    }
+    .event-sponsor a:hover { color: var(--text); border-bottom-color: var(--text-3); }
+
+    .event-link {
+      color: inherit; text-decoration: underline;
+      text-decoration-color: var(--border); text-underline-offset: 2px;
+    }
+    .event-link:hover { color: var(--red); text-decoration-color: var(--red); }
+
+    .event-classes { font-size: 12px; font-weight: 600; color: var(--red); margin-top: 4px; line-height: 1.5; }
+
+    .event-location {
+      font-size: 11px; color: var(--text-3); margin-top: 3px;
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+    .event-location::before {
+      content: ''; width: 3px; height: 3px; border-radius: 50%;
+      background: var(--text-4); display: inline-block;
+    }
+    .event-location a { color: var(--text-3); text-decoration: none; border-bottom: 1px solid var(--border-2); }
+    .event-location a:hover { color: var(--text); }
 
     .race-section-header {
-      background: linear-gradient(90deg, rgba(225,29,72,0.07), transparent);
-      padding: 7px 18px; border-left: 3px solid var(--red);
-      border-top: 1px solid var(--gray-100); border-bottom: 1px solid var(--gray-100);
+      padding: 10px 18px 4px; background: var(--surface); border-top: 1px solid var(--border-2);
     }
-    .race-section-label { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); }
+    .race-section-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--red);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .race-section-label::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--red); display: inline-block;
+    }
 
     /* DISCLAIMER */
     .disclaimer {
-      margin: 0 16px; padding: 11px 16px;
-      background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 8px;
-      font-size: 11px; font-weight: 500; color: #92400E; text-align: center;
+      margin: 14px 14px 0; padding: 12px 16px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); font-size: 11px;
+      color: var(--text-2); text-align: center; line-height: 1.5;
     }
+    .disclaimer strong { color: var(--text); font-weight: 600; }
+    .disclaimer a { color: var(--text); font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--border); }
 
     /* FOOTER */
-    .schedule-footer { margin-top: 24px; padding: 20px 16px; text-align: center; border-top: 1px solid var(--gray-200); }
-    .footer-logo { height: 36px; width: auto; object-fit: contain; opacity: 0.4; margin-bottom: 8px; }
-    .footer-text { font-size: 11px; color: var(--gray-400); }
-    .footer-text a { color: var(--sky); text-decoration: none; }
-    .footer-btns { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .schedule-footer { margin-top: 24px; padding: 20px 16px; text-align: center; }
+    .footer-text { font-size: 11px; color: var(--text-3); }
+    .footer-text a { color: var(--text-2); text-decoration: none; }
+    .footer-text a:hover { color: var(--text); }
+    .footer-btns { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
     .btn-print {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 9px 20px; background: var(--dark); color: #fff; border: none; border-radius: 8px;
-      font-family: var(--font); font-size: 12px; font-weight: 600;
-      cursor: pointer; text-transform: uppercase; letter-spacing: 0.06em; transition: background 0.15s;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text-2); padding: 7px 16px; border-radius: 999px;
+      font-family: var(--font); font-size: 11px; font-weight: 500;
+      cursor: pointer; letter-spacing: 0.02em; transition: background 0.12s, color 0.12s;
     }
-    .btn-print:hover { background: var(--dark-hover); }
+    .btn-print:hover { background: var(--surface); color: var(--text); }
 
-    /* EVENT ROW CLICKABLE */
-    .event-row { cursor: pointer; -webkit-tap-highlight-color: transparent; }
-    .event-row:active { opacity: 0.85; }
-
-    /* MODAL OVERLAY — centered on all screen sizes */
+    /* MODAL OVERLAY */
     .modal-overlay {
-      display: none;
-      position: fixed; inset: 0; z-index: 1000;
-      background: rgba(11,30,61,0.6);
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 16px;
     }
     .modal-overlay.open { display: flex; }
-
-    /* MODAL SHEET */
     .modal-sheet {
-      background: var(--white);
-      width: 100%;
-      max-width: 480px;
-      max-height: 82vh;
-      border-radius: 20px;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      transform: scale(0.95) translateY(12px);
-      opacity: 0;
+      background: var(--surface); width: 100%; max-width: 460px;
+      max-height: 82vh; border-radius: 20px;
+      overflow-y: auto; -webkit-overflow-scrolling: touch;
+      transform: scale(0.95) translateY(12px); opacity: 0;
       transition: transform 0.22s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.18s ease;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.25);
-      position: relative;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.18); position: relative;
     }
-    .modal-overlay.open .modal-sheet {
-      transform: scale(1) translateY(0);
-      opacity: 1;
-    }
-
-    /* Hide drag handle — not needed for centered modal */
+    .modal-overlay.open .modal-sheet { transform: scale(1) translateY(0); opacity: 1; }
     .modal-handle { display: none; }
 
-    /* MODAL TYPE STRIP */
-    .modal-type-strip { height: 5px; width: 100%; border-radius: 20px 20px 0 0; }
+    .modal-type-strip { height: 4px; width: 100%; border-radius: 20px 20px 0 0; }
     .modal-type-strip.race     { background: var(--red); }
-    .modal-type-strip.official { background: var(--sky); }
-    .modal-type-strip.social   { background: var(--amber); }
-    .modal-type-strip.ops      { background: var(--gray-300); }
+    .modal-type-strip.official { background: #0EA5E9; }
+    .modal-type-strip.social   { background: #F59E0B; }
+    .modal-type-strip.ops      { background: var(--border); }
 
-    /* MODAL HEADER ROW */
     .modal-header {
-      display: flex; align-items: flex-start;
-      justify-content: space-between; gap: 12px;
-      padding: 16px 20px 0;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 12px; padding: 16px 20px 0;
     }
     .modal-type-time { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .modal-type-badge {
       font-size: 9px; font-weight: 800; letter-spacing: 0.1em;
-      text-transform: uppercase; padding: 3px 9px; border-radius: 20px; color: #fff;
+      text-transform: uppercase; padding: 3px 9px; border-radius: 999px; color: #fff;
     }
     .modal-type-badge.race     { background: var(--red); }
-    .modal-type-badge.official { background: var(--sky); }
-    .modal-type-badge.social   { background: var(--amber); }
-    .modal-type-badge.ops      { background: var(--gray-400); }
-    .modal-time {
-      font-size: 12px; font-weight: 700; color: var(--gray-400); letter-spacing: -0.01em;
-    }
-    .modal-close {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: var(--gray-100); border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; color: var(--gray-500); transition: background 0.15s;
-      font-size: 18px; line-height: 1;
-    }
-    .modal-close:hover { background: var(--gray-200); }
+    .modal-type-badge.official { background: #0EA5E9; }
+    .modal-type-badge.social   { background: #F59E0B; }
+    .modal-type-badge.ops      { background: var(--text-4); }
+    .modal-time { font-size: 12px; font-weight: 600; color: var(--text-3); }
 
-    /* MODAL BODY */
+    .modal-close {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--bg); border: 1px solid var(--border); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: var(--text-3); transition: background 0.12s;
+      font-size: 16px; line-height: 1;
+    }
+    .modal-close:hover { background: var(--border); }
+
     .modal-body { padding: 12px 20px 28px; }
     .modal-event-name {
-      font-size: 20px; font-weight: 900; color: var(--gray-900);
-      line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px;
+      font-size: 19px; font-weight: 700; color: var(--text);
+      line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 14px;
     }
     .modal-event-name.race { color: var(--red); }
 
     .modal-detail-row {
       display: flex; align-items: flex-start; gap: 12px;
-      padding: 10px 0; border-top: 1px solid var(--gray-100);
+      padding: 10px 0; border-top: 1px solid var(--border-2);
     }
-    .modal-detail-icon {
-      font-size: 16px; flex-shrink: 0; width: 22px; text-align: center; margin-top: 1px;
-    }
+    .modal-detail-icon { font-size: 15px; flex-shrink: 0; width: 20px; text-align: center; margin-top: 1px; }
     .modal-detail-label {
       font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--gray-400); margin-bottom: 2px;
+      text-transform: uppercase; color: var(--text-4); margin-bottom: 2px;
     }
-    .modal-detail-value {
-      font-size: 14px; font-weight: 500; color: var(--gray-900); line-height: 1.4;
+    .modal-detail-value { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.4; }
+    .modal-detail-value a {
+      color: var(--text); text-decoration: none;
+      border-bottom: 1px solid var(--border); transition: color 0.12s;
     }
-    .modal-detail-value a { color: var(--sky); text-decoration: none; font-weight: 600; }
-    .modal-detail-value a:hover { text-decoration: underline; }
+    .modal-detail-value a:hover { color: var(--red); }
 
     .modal-classes { font-size: 13px; font-weight: 700; color: var(--red); line-height: 1.6; }
 
     .modal-action-btn {
       display: flex; align-items: center; justify-content: center; gap: 8px;
-      width: 100%; padding: 14px 20px; margin-top: 20px;
-      background: var(--dark); color: #fff; border: none; border-radius: 12px;
-      font-family: var(--font); font-size: 14px; font-weight: 700;
-      cursor: pointer; text-decoration: none; letter-spacing: 0.02em;
-      transition: background 0.15s;
+      width: 100%; padding: 13px 20px; margin-top: 18px;
+      background: var(--text); color: #fff; border: none; border-radius: 12px;
+      font-family: var(--font); font-size: 14px; font-weight: 600;
+      cursor: pointer; text-decoration: none; letter-spacing: 0.01em; transition: opacity 0.15s;
     }
-    .modal-action-btn:hover { background: var(--dark-hover); }
+    .modal-action-btn:hover { opacity: 0.85; }
     .modal-action-btn.race-btn { background: var(--red); }
-    .modal-action-btn.race-btn:hover { background: #c01040; }
-
-    /* PRINT — hide modal */
-    @media print {
-      .modal-overlay { display: none !important; }
-    }
 
     /* MOBILE */
     @media (max-width: 520px) {
-      .event-row { grid-template-columns: 1fr; gap: 3px; padding: 10px 14px; }
-      .event-time { font-size: 11px; font-weight: 700; padding-right: 0; }
-      .championship-badge { font-size: 8px; padding: 3px 8px; }
-      .toggle-pill { font-size: 9px; padding: 4px 10px; }
-      .logo-glgp { height: 54px; }
-      .header-title { font-size: 16px; }
-      #schedule-container { padding: 10px; gap: 10px; }
+      body { font-size: 13px; }
+      .schedule-header { padding: 12px 14px; gap: 10px; flex-wrap: wrap; }
+      .logo-glgp { height: 40px; }
+      .header-title { font-size: 14px; }
+      .header-sub { font-size: 10px; }
+      .header-eyebrow { font-size: 9px; }
+      .refresh-btn { padding: 5px 10px; font-size: 10px; }
+      .last-updated { display: none; }
+      .nav-btn { padding: 9px 12px; }
+      .nav-btn-day { font-size: 10px; }
+      .nav-btn-date { font-size: 9px; }
+      #schedule-container { padding: 10px; gap: 8px; }
+      .day-header { padding: 13px 14px; }
+      .day-name { font-size: 15px; }
+      .day-date { font-size: 12px; }
+      .event-row { grid-template-columns: 1fr; gap: 3px; padding: 11px 14px 11px 12px; }
+      .event-time { font-size: 10px; font-weight: 700; color: var(--text-2); letter-spacing: 0.04em; text-transform: uppercase; }
+      .event-row.race .event-time { color: var(--red); }
+      .event-name { font-size: 14px; }
+      .race-day-tag { font-size: 9px; padding: 3px 8px; }
     }
 
     /* PRINT */
     @media print {
       body { background: #fff; font-size: 11px; }
-      .quick-nav, .footer-btns, .refresh-btn, .header-actions, #loading-state, #error-state, .modal-overlay { display: none !important; }
+      .quick-nav, .footer-btns, .refresh-btn, .header-actions,
+      #loading-state, #error-state, .modal-overlay { display: none !important; }
       .page-wrap { max-width: 100%; padding: 0; }
       .day-card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; margin-bottom: 10px; }
       .day-card.collapsed .day-body { display: block !important; }
-      .day-header, .event-row.race, .championship-badge, .schedule-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .day-header, .event-row.race, .race-day-tag, .schedule-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       #schedule-container { padding: 6px; gap: 8px; }
-      .event-row { padding: 7px 14px; }
-      .toggle-pill { display: none; }
+      .event-row { padding: 7px 14px; cursor: default; }
+      .toggle-chevron { display: none; }
     }
   </style>
 </head>
@@ -399,30 +398,23 @@
 <div class="page-wrap">
 
   <header class="schedule-header">
-    <div class="header-inner">
-      <div class="logos">
-        <img src="https://raceworldoffshore.com/wp-content/uploads/2024/12/2024_GreatLakesGrandPrixLogo-1536x1130-1.png"
-             alt="XINSURANCE Great Lakes Grand Prix" class="logo-glgp" onerror="this.style.display='none'">
-      </div>
-      <div class="header-text">
-        <div class="header-eyebrow">Race World Offshore</div>
-        <h1 class="header-title">XINSURANCE Great Lakes<br>Grand Prix</h1>
-        <div class="header-subtitle">
-          <span>July 27 – August 2, 2026</span>
-          <span style="color:rgba(255,255,255,0.25)">|</span>
-          <span>Michigan City, Indiana</span>
-          <span class="header-badge">Official Schedule</span>
-        </div>
-        <div class="header-actions">
-          <button class="refresh-btn" id="refresh-btn" onclick="loadSchedule(true)">
-            <svg id="refresh-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
-            </svg>
-            Refresh
-          </button>
-          <span class="last-updated" id="last-updated"></span>
-        </div>
-      </div>
+    <div class="header-logos">
+      <img src="https://raceworldoffshore.com/wp-content/uploads/2024/12/2024_GreatLakesGrandPrixLogo-1536x1130-1.png"
+           alt="XINSURANCE Great Lakes Grand Prix" class="logo-glgp" onerror="this.style.display='none'">
+    </div>
+    <div class="header-titles">
+      <div class="header-eyebrow">2026 Schedule</div>
+      <div class="header-title">XINSURANCE Great Lakes Grand Prix</div>
+      <div class="header-sub">July 27&ndash;August 2, 2026 &nbsp;·&nbsp; Michigan City, Indiana</div>
+    </div>
+    <div class="header-right">
+      <button class="refresh-btn" id="refresh-btn" onclick="loadSchedule(true)" aria-label="Refresh schedule">
+        <svg id="refresh-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+        </svg>
+        Refresh
+      </button>
+      <span class="last-updated" id="last-updated"></span>
     </div>
   </header>
 
@@ -433,17 +425,32 @@
   <div id="loading-state">
     <img src="https://raceworldoffshore.com/wp-content/uploads/2026/03/RWO-square.png"
          alt="RWO" class="loading-logo" onerror="this.style.display='none'">
-    <div class="loading-text">Loading Schedule…</div>
-    <div class="loading-sub">Fetching latest data from Google Sheets</div>
+    <div class="loading-text">Loading Schedule</div>
+    <div class="loading-sub">Fetching latest data</div>
   </div>
 
   <div id="error-state">
-    <div class="error-title">⚠️ Could Not Load Schedule</div>
-    <div class="error-sub">The schedule data could not be loaded. Make sure you are viewing this page from GitHub Pages (https://), not opened locally from your computer.</div>
+    <div class="error-title">Could not load schedule</div>
+    <div class="error-sub">The schedule data could not be loaded. Make sure you are viewing this page from GitHub Pages (https://), not opened locally.</div>
     <button class="error-retry" onclick="loadSchedule(true)">Try Again</button>
   </div>
 
   <div id="schedule-container"></div>
+
+  <div class="disclaimer" id="disclaimer" style="display:none">
+    <strong>Schedule subject to change.</strong> All times Central (CT). Visit
+    <a href="https://raceworldoffshore.com/michigan-city/" target="_blank">raceworldoffshore.com</a> for updates.
+  </div>
+
+  <footer class="schedule-footer">
+    <div class="footer-text">
+      &copy; 2026 Race World Offshore &nbsp;·&nbsp;
+      <a href="https://raceworldoffshore.com/michigan-city/" target="_blank">raceworldoffshore.com/michigan-city</a>
+    </div>
+    <div class="footer-btns">
+      <button class="btn-print" onclick="window.print()">Print Schedule</button>
+    </div>
+  </footer>
 
   <!-- EVENT DETAIL MODAL -->
   <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-event-name">
@@ -467,34 +474,14 @@
     </div>
   </div>
 
-  <div class="disclaimer" id="disclaimer" style="display:none">
-    ⚠️ &nbsp;<strong>Races subject to change.</strong>&nbsp; All times local Michigan City time (Central).
-  </div>
-
-  <footer class="schedule-footer">
-    <img src="https://raceworldoffshore.com/wp-content/uploads/2024/12/2024_GreatLakesGrandPrixLogo-1536x1130-1.png"
-         alt="Great Lakes Grand Prix" class="footer-logo" onerror="this.style.display='none'">
-    <div class="footer-text">
-      &copy; 2026 Race World Offshore &nbsp;&bull;&nbsp;
-      <a href="https://raceworldoffshore.com/michigan-city/" target="_blank">raceworldoffshore.com/michigan-city</a>
-    </div>
-    <div class="footer-btns">
-      <button class="btn-print" onclick="window.print()">🖨️ &nbsp;Print Schedule</button>
-    </div>
-  </footer>
-
 </div>
 
 <script>
 /* =============================================================
-   CONFIG — paste your Google Sheets published CSV URL here
+   CONFIG
 ============================================================= */
 const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRJimDTpMjZvn2lD4DtTwtFh722j4lywlmGa_vWsTdLhDPuRQQx03R5h2k9_QVl8tFEbF4kiXs1fchT/pub?gid=572352995&single=true&output=csv';
 
-/* =============================================================
-   SPONSOR LINKS
-   Add a URL for any sponsor and it becomes a clickable link.
-============================================================= */
 const SPONSOR_LINKS = {
   'XINSURANCE': 'https://raceworldoffshore.com/michigan-city/',
 };
@@ -536,9 +523,12 @@ function groupByDay(rows) {
     if (!dayName || !date || !time || !name) return;
     const key = `${dayName}|${date}`;
     if (!dayMap.has(key)) {
-      const d = { dayName: dayName.trim(), date: date.trim(),
+      const d = {
+        dayName: dayName.trim(), date: date.trim(),
         championship: championship ? championship.trim() : null,
-        isRaceDay: (raceDay || '').trim().toLowerCase() === 'yes', events: [] };
+        isRaceDay: (raceDay || '').trim().toLowerCase() === 'yes',
+        events: []
+      };
       dayMap.set(key, d); days.push(d);
     }
     dayMap.get(key).events.push({
@@ -556,7 +546,7 @@ function groupByDay(rows) {
 }
 
 /* =============================================================
-   RENDER: QUICK NAV
+   QUICK NAV
 ============================================================= */
 function buildQuickNav(schedule) {
   const nav = document.getElementById('quick-nav-inner');
@@ -564,12 +554,12 @@ function buildQuickNav(schedule) {
   schedule.forEach((day, i) => {
     const btn = document.createElement('button');
     btn.className = 'nav-btn' + (day.isRaceDay ? ' race-day' : '');
-    const shortDate = day.date
-      .replace('July ', 'Jul ')
-      .replace('August ', 'Aug ');
-    btn.innerHTML = `<span class="nav-btn-day">${day.dayName.substring(0,3)}</span>
-                     <span class="nav-btn-date">${shortDate}</span>
-                     ${day.isRaceDay ? '<span class="nav-race-dot"></span>' : ''}`;
+    const shortDate = day.date.replace('July ', 'Jul ').replace('August ', 'Aug ');
+    btn.innerHTML = `
+      <span class="nav-btn-day">${day.dayName.substring(0,3)}</span>
+      <span class="nav-btn-date">${shortDate}</span>
+      ${day.isRaceDay ? '<span class="nav-race-dot"></span>' : ''}
+    `;
     btn.addEventListener('click', () => {
       const card = document.getElementById('day-' + i);
       if (card) {
@@ -583,7 +573,7 @@ function buildQuickNav(schedule) {
 }
 
 /* =============================================================
-   RENDER: SPONSOR
+   SPONSOR RENDER
 ============================================================= */
 function sponsorHTML(sponsor, sponsorUrl) {
   if (!sponsor) return '';
@@ -596,7 +586,7 @@ function sponsorHTML(sponsor, sponsorUrl) {
 }
 
 /* =============================================================
-   RENDER: EVENT ROW
+   EVENT ROW
 ============================================================= */
 function renderEvent(evt) {
   const row = document.createElement('div');
@@ -608,12 +598,12 @@ function renderEvent(evt) {
     ? `<a href="${evt.url}" target="_blank" rel="noopener" class="event-link">${nameFormatted}</a>`
     : nameFormatted;
   const namePart = isRace
-    ? `<span class="event-name">${nameText}<span class="race-badge">RACE</span></span>`
+    ? `<span class="event-name">${nameText}<span class="race-pill">Race</span></span>`
     : `<span class="event-name">${nameText}</span>`;
 
   const classesPart = evt.classes ? `<div class="event-classes">${evt.classes.replace(/\|/g,'<br>')}</div>` : '';
   const locationText = evt.locationUrl
-    ? `<a href="${evt.locationUrl}" target="_blank" rel="noopener" class="event-link">${evt.location}</a>`
+    ? `<a href="${evt.locationUrl}" target="_blank" rel="noopener">${evt.location}</a>`
     : evt.location;
   const locationPart = evt.location ? `<div class="event-location">${locationText}</div>` : '';
 
@@ -627,7 +617,6 @@ function renderEvent(evt) {
     </div>`;
 
   row.addEventListener('click', e => {
-    // Don't open modal if user tapped a link inside the row
     if (e.target.closest('a')) return;
     openModal(evt);
   });
@@ -636,39 +625,37 @@ function renderEvent(evt) {
 }
 
 /* =============================================================
-   RENDER: FULL SCHEDULE
+   BUILD SCHEDULE — Friday expanded by default
 ============================================================= */
 function buildSchedule(schedule) {
   const container = document.getElementById('schedule-container');
   container.innerHTML = '';
 
   schedule.forEach((day, i) => {
+    const isFriday = day.dayName.toLowerCase() === 'friday';
     const card = document.createElement('div');
-    card.className = 'day-card' + (day.dayName === 'Friday' ? '' : ' collapsed');
+    card.className = isFriday ? 'day-card' : 'day-card collapsed';
     card.id = 'day-' + i;
 
-    const badge = day.championship
-      ? `<div class="championship-badge">🏁 ${day.championship}</div>`
+    const raceDayTag = day.isRaceDay
+      ? `<div class="race-day-tag"><span class="race-day-dot"></span>${day.championship || 'Race Day'}</div>`
       : '';
 
-    const chevronSVG = `<svg class="toggle-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    const chevron = `
+      <svg class="toggle-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <polyline points="6 9 12 15 18 9"/>
       </svg>`;
 
     card.innerHTML = `
-      <div class="day-header" role="button" tabindex="0" aria-expanded="${day.dayName === 'Friday' ? 'true' : 'false'}">
+      <div class="day-header" role="button" tabindex="0" aria-expanded="${isFriday ? 'true' : 'false'}">
         <div class="day-header-left">
           <div class="day-name">${day.dayName}</div>
           <div class="day-date">${day.date}</div>
         </div>
         <div class="day-header-right">
-          ${badge}
-          <div class="toggle-pill">
-            ${chevronSVG}
-            <span class="pill-show">SHOW</span>
-            <span class="pill-hide">HIDE</span>
-          </div>
+          ${raceDayTag}
+          ${chevron}
         </div>
       </div>
       <div class="day-body"><div class="events-list"></div></div>`;
@@ -679,7 +666,7 @@ function buildSchedule(schedule) {
       if (evt.type === 'race' && !raceHeaderInserted) {
         const divider = document.createElement('div');
         divider.className = 'race-section-header';
-        divider.innerHTML = '<div class="race-section-label">🏁 Race Schedule — Subject to Change</div>';
+        divider.innerHTML = '<div class="race-section-label">Race Schedule — subject to change</div>';
         eventsList.appendChild(divider);
         raceHeaderInserted = true;
       }
@@ -709,11 +696,11 @@ async function loadSchedule(forceRefresh = false) {
   const refreshBtn  = document.getElementById('refresh-btn');
   const lastUpdated = document.getElementById('last-updated');
 
-  if (!SHEETS_CSV_URL || SHEETS_CSV_URL === 'PLACEHOLDER_GOOGLE_SHEETS_CSV_URL') {
+  if (!SHEETS_CSV_URL || SHEETS_CSV_URL === 'YOUR_GOOGLE_SHEETS_CSV_URL_HERE') {
     loading.style.display = 'none';
     errorEl.style.display = 'block';
-    errorEl.querySelector('.error-title').textContent = '⚙️ Setup Required';
-    errorEl.querySelector('.error-sub').textContent = 'Paste your Google Sheets CSV URL into the SHEETS_CSV_URL variable at the top of the script.';
+    errorEl.querySelector('.error-title').textContent = 'Setup required';
+    errorEl.querySelector('.error-sub').textContent = 'Paste your Google Sheets CSV URL into the SHEETS_CSV_URL variable.';
     return;
   }
 
@@ -745,10 +732,10 @@ async function loadSchedule(forceRefresh = false) {
     console.error(err);
     loading.style.display = 'none';
     errorEl.style.display = 'block';
-    errorEl.querySelector('.error-title').textContent = '⚠️ Could Not Load Schedule';
+    errorEl.querySelector('.error-title').textContent = 'Could not load schedule';
     errorEl.querySelector('.error-sub').innerHTML =
       `The schedule data could not be loaded. Make sure you are viewing this page from GitHub Pages (https://), not opened locally.<br>
-       <small style="color:#94a3b8;font-size:11px">Error: ${err.message}</small>`;
+       <small style="color:var(--text-4);font-size:11px">Error: ${err.message}</small>`;
   } finally {
     refreshBtn.classList.remove('spinning');
   }
@@ -759,66 +746,53 @@ loadSchedule();
 /* =============================================================
    EVENT DETAIL MODAL
 ============================================================= */
-const modalOverlay  = document.getElementById('modal-overlay');
-const modalSheet    = document.getElementById('modal-sheet');
-const modalClose    = document.getElementById('modal-close');
-const modalStrip    = document.getElementById('modal-type-strip');
-const modalBadge    = document.getElementById('modal-type-badge');
-const modalTime     = document.getElementById('modal-time');
-const modalName     = document.getElementById('modal-event-name');
-const modalDetails  = document.getElementById('modal-details');
+const modalOverlay   = document.getElementById('modal-overlay');
+const modalSheet     = document.getElementById('modal-sheet');
+const modalClose     = document.getElementById('modal-close');
+const modalStrip     = document.getElementById('modal-type-strip');
+const modalBadge     = document.getElementById('modal-type-badge');
+const modalTime      = document.getElementById('modal-time');
+const modalName      = document.getElementById('modal-event-name');
+const modalDetails   = document.getElementById('modal-details');
 const modalActionBtn = document.getElementById('modal-action-btn');
 
 const TYPE_LABELS = { race: 'Race', official: 'Official', social: 'Social', ops: 'Info' };
 
 function openModal(evt) {
-  // Type strip + badge
   modalStrip.className = 'modal-type-strip ' + evt.type;
   modalBadge.className = 'modal-type-badge ' + evt.type;
   modalBadge.textContent = TYPE_LABELS[evt.type] || evt.type;
-
-  // Time
   modalTime.textContent = evt.time;
-
-  // Name
   modalName.className = 'modal-event-name' + (evt.type === 'race' ? ' race' : '');
   modalName.innerHTML = evt.name.replace(/\r\n|\r|\n/g, '<br>');
 
-  // Build detail rows
   let html = '';
-
   if (evt.sponsor) {
-    const sponsorDisplay = evt.sponsorUrl
-      ? `<a href="${evt.sponsorUrl}" target="_blank" rel="noopener">${evt.sponsor}</a>`
-      : (SPONSOR_LINKS[evt.sponsor.replace(/^presented by\s*/i,'').trim()] || SPONSOR_LINKS[evt.sponsor])
-        ? `<a href="${SPONSOR_LINKS[evt.sponsor.replace(/^presented by\s*/i,'').trim()] || SPONSOR_LINKS[evt.sponsor]}" target="_blank" rel="noopener">${evt.sponsor}</a>`
-        : evt.sponsor;
+    const clean = evt.sponsor.replace(/^presented by\s*/i, '').trim();
+    const sUrl = evt.sponsorUrl || SPONSOR_LINKS[clean] || SPONSOR_LINKS[evt.sponsor];
+    const sDisplay = sUrl ? `<a href="${sUrl}" target="_blank" rel="noopener">${evt.sponsor}</a>` : evt.sponsor;
     html += `<div class="modal-detail-row">
       <div class="modal-detail-icon">🤝</div>
-      <div><div class="modal-detail-label">Sponsor</div><div class="modal-detail-value">${sponsorDisplay}</div></div>
+      <div><div class="modal-detail-label">Sponsor</div><div class="modal-detail-value">${sDisplay}</div></div>
     </div>`;
   }
-
   if (evt.location) {
-    const locDisplay = evt.locationUrl
+    const lDisplay = evt.locationUrl
       ? `<a href="${evt.locationUrl}" target="_blank" rel="noopener">${evt.location}</a>`
       : evt.location;
     html += `<div class="modal-detail-row">
       <div class="modal-detail-icon">📍</div>
-      <div><div class="modal-detail-label">Location</div><div class="modal-detail-value">${locDisplay}</div></div>
+      <div><div class="modal-detail-label">Location</div><div class="modal-detail-value">${lDisplay}</div></div>
     </div>`;
   }
-
   if (evt.classes) {
     html += `<div class="modal-detail-row">
       <div class="modal-detail-icon">🏁</div>
       <div><div class="modal-detail-label">Classes</div><div class="modal-classes">${evt.classes.replace(/\|/g,'<br>')}</div></div>
     </div>`;
   }
-
   modalDetails.innerHTML = html;
 
-  // Action button
   if (evt.url) {
     modalActionBtn.href = evt.url;
     modalActionBtn.className = 'modal-action-btn' + (evt.type === 'race' ? ' race-btn' : '');
@@ -827,7 +801,6 @@ function openModal(evt) {
     modalActionBtn.style.display = 'none';
   }
 
-  // Open
   modalOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
   modalSheet.scrollTop = 0;
@@ -838,19 +811,14 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-// Close on backdrop click (not sheet click)
 modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeModal(); });
 modalClose.addEventListener('click', closeModal);
-
-// Close on ESC
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-// Touch swipe-down to close
 let touchStartY = 0;
 modalSheet.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, { passive: true });
 modalSheet.addEventListener('touchend', e => {
-  const delta = e.changedTouches[0].clientY - touchStartY;
-  if (delta > 60 && modalSheet.scrollTop === 0) closeModal();
+  if (e.changedTouches[0].clientY - touchStartY > 60 && modalSheet.scrollTop === 0) closeModal();
 }, { passive: true });
 </script>
 </body>
