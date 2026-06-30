@@ -810,88 +810,91 @@ modalSheet.addEventListener('touchend', e => {
 }, { passive: true });
 
 /* =============================================================
-   PRINT — opens a fresh window with self-contained HTML+CSS.
-   Zero dependency on the parent page. No blank pages possible.
+   PRINT — opens a fresh window with self-contained HTML + CSS.
+   Uses explicit CSS Grid (NOT css columns) to avoid Chrome's
+   column-balancing algorithm which causes blank pages.
+   JS pre-splits day cards between two divs by event count.
 ============================================================= */
 function printSchedule() {
-  const cards = Array.from(document.querySelectorAll('#schedule-container .day-card'));
+  var cards = Array.from(document.querySelectorAll('#schedule-container .day-card'));
   if (!cards.length) {
     alert('Schedule is still loading — please wait a moment and try again.');
     return;
   }
 
-  // Clone cards, expand all, physically remove unwanted elements
-  const cardsHTML = cards.map(function(card) {
-    const c = card.cloneNode(true);
+  // Clone, expand, strip unwanted elements from each card
+  var cleaned = cards.map(function(card) {
+    var c = card.cloneNode(true);
     c.classList.remove('collapsed');
-    c.querySelectorAll(
-      '.event-location, .event-sponsor, .race-pill, .toggle-chevron, .race-section-header'
-    ).forEach(function(el) { el.remove(); });
-    return c.outerHTML;
-  }).join('');
+    c.querySelectorAll('.event-location,.event-sponsor,.race-pill,.toggle-chevron,.race-section-header').forEach(function(el){ el.remove(); });
+    return c;
+  });
 
-  const css = [
-    '@page{size:letter portrait;margin:.2in .25in}',
-    '*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}',
-    'body{font-family:-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;background:#fff}',
-    /* header */
-    '.ph{display:flex;align-items:center;gap:8pt;padding:4pt 6pt 5pt;border-bottom:1.5pt solid #E11D48;margin-bottom:4pt}',
-    '.ph img{height:26pt;width:auto;object-fit:contain}',
-    '.pe{font-size:6pt;color:#E11D48;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:2pt}',
-    '.pt{font-size:11pt;font-weight:700;color:#1D1D1F;line-height:1.1}',
-    '.ps{font-size:7pt;color:#6E6E73;margin-top:2pt}',
-    /* 2-col grid */
-    '.pg{columns:2;column-gap:8pt;column-fill:balance;padding:3pt}',
-    /* day cards */
-    '.day-card{border:.75pt solid #ccc;border-radius:3pt;margin-bottom:4pt;overflow:hidden;break-inside:avoid;page-break-inside:avoid;display:inline-block;width:100%}',
-    '.day-header{display:flex;align-items:center;justify-content:space-between;gap:5pt;padding:3pt 6pt;background:#1D1D1F}',
-    '.day-header-left{display:flex;align-items:baseline;gap:5pt}',
-    '.day-name{font-size:9pt;font-weight:800;color:#fff;line-height:1.1}',
-    '.day-date{font-size:7.5pt;color:rgba(255,255,255,.6);font-weight:400}',
-    '.day-header-right{display:flex;align-items:center;gap:4pt}',
-    '.race-day-tag{display:inline-flex;align-items:center;gap:3pt;font-size:6pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:#E11D48;padding:1pt 4pt;border-radius:999pt;white-space:nowrap}',
-    '.race-day-dot{width:3pt;height:3pt;border-radius:50%;background:#fff;display:inline-block;flex-shrink:0}',
-    /* event rows */
-    '.day-body{border-top:.75pt solid #ddd}',
-    '.day-card.collapsed .day-body{display:block}',
-    '.events-list{}',
-    '.event-row{display:grid;grid-template-columns:70pt 1fr;gap:3pt;padding:2.5pt 5pt;border-bottom:.5pt solid #f0f0f0;border-left:2pt solid transparent;align-items:baseline}',
-    '.event-row:last-child{border-bottom:none}',
-    '.event-time{font-size:7pt;color:#6E6E73;line-height:1.2}',
-    '.event-content{min-width:0}',
-    '.event-name{font-size:8pt;color:#1D1D1F;line-height:1.2;font-weight:500}',
-    '.event-row.race{border-left-color:#E11D48}',
-    '.event-row.race .event-time{color:#E11D48;font-weight:700}',
-    '.event-row.race .event-name{color:#E11D48;font-weight:800}',
-    '.event-classes{font-size:6.5pt;color:#E11D48;margin-top:.5pt;line-height:1.1}',
-    /* strip any links of colour/underline */
-    'a{color:inherit;text-decoration:none}'
-  ].join('');
-
-  const html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">' +
-    '<title>2026 XINSURANCE Great Lakes Grand Prix – Schedule</title>' +
-    '<style>' + css + '</style></head><body>' +
-    '<div class="ph">' +
-      '<img src="https://raceworldoffshore.com/wp-content/uploads/2024/12/2024_GreatLakesGrandPrixLogo-1536x1130-1.png" alt="GLGP" onerror="this.style.display=\'none\'">' +
-      '<div>' +
-        '<div class="pe">2026 Schedule</div>' +
-        '<div class="pt">XINSURANCE Great Lakes Grand Prix</div>' +
-        '<div class="ps">July 27–August 2, 2026 · Michigan City, Indiana</div>' +
-      '</div>' +
-    '</div>' +
-    '<div class="pg">' + cardsHTML + '</div>' +
-    '</body></html>';
-
-  const w = window.open('', '_blank', 'width=860,height=1120');
-  if (!w) {
-    alert('Popup blocked. Please allow popups for this site and try again.');
-    return;
+  // Split cards between two columns by event count for visual balance
+  var counts = cleaned.map(function(c){ return c.querySelectorAll('.event-row').length; });
+  var total  = counts.reduce(function(a,b){ return a+b; }, 0);
+  var running = 0, splitAt = Math.ceil(cleaned.length / 2);
+  for (var i = 0; i < counts.length - 1; i++) {
+    running += counts[i];
+    if (running >= total / 2) { splitAt = i + 1; break; }
   }
+
+  var col1 = cleaned.slice(0, splitAt).map(function(c){ return c.outerHTML; }).join('');
+  var col2 = cleaned.slice(splitAt).map(function(c){ return c.outerHTML; }).join('');
+
+  var html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">' +
+  '<title>2026 XINSURANCE Great Lakes Grand Prix – Schedule</title>' +
+  '<style>' +
+  '@page{size:letter portrait;margin:.2in .25in}' +
+  '*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}' +
+  'body{font-family:-apple-system,BlinkMacSystemFont,"Inter",system-ui,sans-serif;background:#fff}' +
+  /* header */
+  '.ph{display:flex;align-items:center;gap:8pt;padding:4pt 6pt 5pt;border-bottom:1.5pt solid #E11D48;margin-bottom:4pt}' +
+  '.ph img{height:26pt;width:auto;object-fit:contain}' +
+  '.pe{font-size:6pt;color:#E11D48;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:2pt}' +
+  '.pt{font-size:11pt;font-weight:700;color:#1D1D1F;line-height:1.1}' +
+  '.ps{font-size:7pt;color:#6E6E73;margin-top:2pt}' +
+  /* explicit 2-col grid — NO css columns, avoids blank-page bug */
+  '.pg{display:grid;grid-template-columns:1fr 1fr;gap:8pt;padding:3pt;align-items:start}' +
+  '.pc{display:flex;flex-direction:column;gap:4pt}' +
+  /* day cards */
+  '.day-card{border:.75pt solid #ccc;border-radius:3pt;overflow:hidden}' +
+  '.day-header{display:flex;align-items:center;justify-content:space-between;gap:5pt;padding:3pt 6pt;background:#1D1D1F}' +
+  '.day-header-left{display:flex;align-items:baseline;gap:5pt}' +
+  '.day-name{font-size:9pt;font-weight:800;color:#fff;line-height:1.1}' +
+  '.day-date{font-size:7.5pt;color:rgba(255,255,255,.6);font-weight:400}' +
+  '.day-header-right{display:flex;align-items:center;gap:4pt}' +
+  '.race-day-tag{display:inline-flex;align-items:center;gap:3pt;font-size:6pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:#E11D48;padding:1pt 4pt;border-radius:999pt;white-space:nowrap}' +
+  '.race-day-dot{width:3pt;height:3pt;border-radius:50%;background:#fff;display:inline-block;flex-shrink:0}' +
+  /* event rows */
+  '.day-body{border-top:.75pt solid #ddd}' +
+  '.day-card.collapsed .day-body{display:block!important}' +
+  '.event-row{display:grid;grid-template-columns:70pt 1fr;gap:3pt;padding:2.5pt 5pt;border-bottom:.5pt solid #f0f0f0;border-left:2pt solid transparent;align-items:baseline}' +
+  '.event-row:last-child{border-bottom:none}' +
+  '.event-time{font-size:7pt;color:#6E6E73;line-height:1.2}' +
+  '.event-content{min-width:0}' +
+  '.event-name{font-size:8pt;color:#1D1D1F;line-height:1.2;font-weight:500}' +
+  '.event-row.race{border-left-color:#E11D48}' +
+  '.event-row.race .event-time{color:#E11D48;font-weight:700}' +
+  '.event-row.race .event-name{color:#E11D48;font-weight:800}' +
+  '.event-classes{font-size:6.5pt;color:#E11D48;margin-top:.5pt;line-height:1.1}' +
+  'a{color:inherit;text-decoration:none}' +
+  '</style></head><body>' +
+  '<div class="ph">' +
+    '<img src="https://raceworldoffshore.com/wp-content/uploads/2024/12/2024_GreatLakesGrandPrixLogo-1536x1130-1.png" alt="GLGP" onerror="this.style.display=\'none\'">' +
+    '<div><div class="pe">2026 Schedule</div>' +
+    '<div class="pt">XINSURANCE Great Lakes Grand Prix</div>' +
+    '<div class="ps">July 27–August 2, 2026 · Michigan City, Indiana</div></div>' +
+  '</div>' +
+  '<div class="pg"><div class="pc">' + col1 + '</div><div class="pc">' + col2 + '</div></div>' +
+  '</body></html>';
+
+  var w = window.open('', '_blank', 'width=860,height=1120');
+  if (!w) { alert('Popup blocked. Please allow popups for this site and try again.'); return; }
   w.document.open();
   w.document.write(html);
   w.document.close();
-  // Give the browser 600ms to lay out and load the logo before printing
-  setTimeout(function() { w.focus(); w.print(); }, 600);
+  setTimeout(function(){ w.focus(); w.print(); }, 500);
 }
 </script>
 </body>
