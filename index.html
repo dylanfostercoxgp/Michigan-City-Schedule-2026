@@ -383,7 +383,7 @@
     #print-layout { display: none; }
 
     @media print {
-      @page { size: letter landscape; margin: 0.22in 0.28in; }
+      @page { size: letter portrait; margin: 0.2in 0.25in; }
       * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
       body { margin: 0; background: #fff; }
 
@@ -404,15 +404,15 @@
       #print-layout .header-title { font-size: 11pt; font-weight: 700; color: #1D1D1F; letter-spacing: -0.015em; line-height: 1.1; }
       #print-layout .header-sub { font-size: 7pt; color: #6E6E73; margin-top: 2pt; }
 
-      /* 2-column grid */
+      /* 2-column grid — portrait columns are ~270pt each */
       #print-layout .print-grid {
-        columns: 2; column-gap: 10pt; column-fill: balance;
-        padding: 5pt; display: block;
+        columns: 2; column-gap: 8pt; column-fill: balance;
+        padding: 4pt; display: block;
       }
 
       /* Day cards — never break mid-card across columns */
       #print-layout .day-card {
-        border: 0.75pt solid #ccc; border-radius: 4pt;
+        border: 0.75pt solid #ccc; border-radius: 3pt;
         margin-bottom: 4pt; overflow: hidden;
         break-inside: avoid; page-break-inside: avoid;
         display: inline-block; width: 100%;
@@ -420,37 +420,37 @@
 
       /* Day header */
       #print-layout .day-header {
-        display: flex; align-items: center; justify-content: space-between; gap: 6pt;
-        padding: 3.5pt 7pt; background: #1D1D1F !important;
+        display: flex; align-items: center; justify-content: space-between; gap: 5pt;
+        padding: 3pt 6pt; background: #1D1D1F !important;
       }
-      #print-layout .day-header-left { display: flex; align-items: baseline; gap: 6pt; flex-wrap: wrap; }
-      #print-layout .day-name { font-size: 9.5pt; font-weight: 800; color: #fff !important; line-height: 1.1; }
-      #print-layout .day-date { font-size: 8pt; color: rgba(255,255,255,0.6) !important; font-weight: 400; }
-      #print-layout .day-header-right { display: flex; align-items: center; gap: 5pt; }
+      #print-layout .day-header-left { display: flex; align-items: baseline; gap: 5pt; flex-wrap: wrap; }
+      #print-layout .day-name { font-size: 9pt; font-weight: 800; color: #fff !important; line-height: 1.1; }
+      #print-layout .day-date { font-size: 7.5pt; color: rgba(255,255,255,0.6) !important; font-weight: 400; }
+      #print-layout .day-header-right { display: flex; align-items: center; gap: 4pt; }
       #print-layout .race-day-tag {
         display: inline-flex; align-items: center; gap: 3pt;
-        font-size: 6.5pt; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+        font-size: 6pt; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
         color: #fff !important; background: #E11D48 !important;
-        padding: 1pt 5pt; border-radius: 999pt;
+        padding: 1pt 4pt; border-radius: 999pt;
       }
-      #print-layout .race-day-dot { display: inline-block; width: 3.5pt; height: 3.5pt; border-radius: 50%; background: #fff !important; }
+      #print-layout .race-day-dot { display: inline-block; width: 3pt; height: 3pt; border-radius: 50%; background: #fff !important; }
 
       /* Event rows */
       #print-layout .day-body { border-top: 0.75pt solid #ddd; }
       #print-layout .event-row {
-        display: grid; grid-template-columns: 75pt 1fr;
-        gap: 4pt; padding: 2.5pt 6pt;
+        display: grid; grid-template-columns: 68pt 1fr;
+        gap: 3pt; padding: 2.5pt 5pt;
         border-bottom: 0.5pt solid #F0F0F0;
         border-left: 2pt solid transparent;
         align-items: baseline;
       }
       #print-layout .event-row:last-child { border-bottom: none; }
-      #print-layout .event-time { font-size: 7.5pt; color: #6E6E73; line-height: 1.2; }
-      #print-layout .event-name { font-size: 8.5pt; color: #1D1D1F; line-height: 1.2; font-weight: 500; }
+      #print-layout .event-time { font-size: 7pt; color: #6E6E73; line-height: 1.2; }
+      #print-layout .event-name { font-size: 8pt; color: #1D1D1F; line-height: 1.2; font-weight: 500; }
       #print-layout .event-row.race { border-left-color: #E11D48 !important; }
       #print-layout .event-row.race .event-time { color: #E11D48 !important; font-weight: 700; }
       #print-layout .event-row.race .event-name { color: #E11D48 !important; font-weight: 800; }
-      #print-layout .event-classes { font-size: 7pt; color: #E11D48; margin-top: 1pt; line-height: 1.15; }
+      #print-layout .event-classes { font-size: 6.5pt; color: #E11D48; margin-top: 0.5pt; line-height: 1.1; }
     }
   </style>
 </head>
