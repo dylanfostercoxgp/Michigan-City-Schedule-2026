@@ -381,68 +381,79 @@
 
     /* PRINT */
     @media print {
+      @page { size: letter portrait; margin: 0.3in 0.35in; }
       * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-      body { background: #fff; font-size: 9px; margin: 0; }
-      .quick-nav, .footer-btns, .refresh-btn, .header-right,
-      #loading-state, #error-state, .modal-overlay, .disclaimer,
-      .race-section-header, .race-pill, .schedule-footer { display: none !important; }
+      body { background: #fff; margin: 0; }
 
-      /* Slim print header */
+      /* Hide all non-essential elements */
+      .quick-nav, .refresh-btn, .header-right, .last-updated,
+      #loading-state, #error-state, .modal-overlay, .disclaimer,
+      .race-section-header, .race-pill, .schedule-footer, .footer-btns,
+      .event-sponsor, .event-location, .toggle-chevron { display: none !important; }
+
+      /* Compact header */
       .schedule-header {
-        padding: 8px 12px; border-bottom: 2px solid #E11D48;
-        box-shadow: none; flex-wrap: nowrap; gap: 10px;
+        padding: 5pt 8pt 6pt; gap: 8pt;
+        box-shadow: none; border-bottom: 1.5pt solid #E11D48; flex-wrap: nowrap;
       }
       .schedule-header::after { display: none; }
-      .logo-glgp { height: 32px; }
-      .header-eyebrow { font-size: 8px; }
-      .header-title { font-size: 12px; }
-      .header-sub { font-size: 8px; }
+      .logo-glgp { height: 26pt; }
+      .header-eyebrow { font-size: 6pt; margin-bottom: 2pt; }
+      .header-title { font-size: 11pt; }
+      .header-sub { font-size: 7pt; margin-top: 2pt; }
 
-      /* 2-column schedule */
+      /* 2-column flow */
       .page-wrap { max-width: 100%; padding: 0; }
       #schedule-container {
-        padding: 8px;
-        columns: 2; column-gap: 10px;
-        display: block;
+        columns: 2; column-gap: 10pt;
+        padding: 6pt; display: block;
       }
 
-      /* Day cards */
+      /* Day cards — stay together, never split across columns */
       .day-card {
-        box-shadow: none; border: 1px solid #ccc;
-        border-radius: 6px; margin-bottom: 8px;
-        break-inside: avoid; overflow: visible;
-        display: inline-block; width: 100%;
+        box-shadow: none; border: 0.75pt solid #ccc;
+        border-radius: 4pt; margin-bottom: 5pt;
+        break-inside: avoid; page-break-inside: avoid;
+        overflow: visible; display: inline-block; width: 100%;
       }
       .day-card.collapsed .day-body { display: block !important; }
+      .day-card:hover { border-color: #ccc; }
 
-      /* Day header */
-      .day-header { padding: 5px 10px; background: #1D1D1F !important; cursor: default; }
-      .day-name { font-size: 10px; font-weight: 800; color: #fff !important; }
-      .day-date { font-size: 9px; color: rgba(255,255,255,0.7) !important; }
+      /* Day header — dark with white text */
+      .day-header {
+        padding: 4pt 8pt; background: #1D1D1F !important;
+        cursor: default; transition: none;
+      }
+      .day-header:hover { background: #1D1D1F !important; }
+      .day-header-left { gap: 6pt; }
+      .day-name { font-size: 9.5pt; font-weight: 800; color: #fff !important; }
+      .day-date { font-size: 8pt; color: rgba(255,255,255,0.65) !important; }
       .race-day-tag {
-        font-size: 7px; padding: 2px 6px;
+        font-size: 6.5pt; padding: 1.5pt 5pt;
         background: #E11D48 !important; color: #fff !important;
       }
-      .race-day-dot { background: #fff !important; }
-      .toggle-chevron { display: none; }
+      .race-day-dot { background: #fff !important; width: 4pt; height: 4pt; }
 
-      /* Event rows — single compact line */
+      /* Event rows */
+      .day-body { border-top: 0.75pt solid #ddd; }
       .event-row {
-        grid-template-columns: 100px 1fr;
-        gap: 6px; padding: 4px 8px;
-        border-bottom: 1px solid #EFEFF2; cursor: default;
-        border-left-width: 2px;
+        grid-template-columns: 76pt 1fr;
+        gap: 5pt; padding: 3pt 7pt;
+        border-bottom: 0.5pt solid #EFEFEF;
+        border-left-width: 2pt; cursor: default; transition: none;
+        align-items: baseline;
       }
+      .event-row:hover { background: transparent !important; }
       .event-row:last-child { border-bottom: none; }
-      .event-row:hover { background: transparent; }
-      .event-time { font-size: 8px; color: #6E6E73; line-height: 1.3; }
-      .event-name { font-size: 9px; line-height: 1.3; color: #1D1D1F; }
+      .event-time {
+        font-size: 7.5pt; color: #6E6E73;
+        line-height: 1.3; font-weight: 400;
+      }
+      .event-name { font-size: 8.5pt; color: #1D1D1F; line-height: 1.3; font-weight: 500; }
+      .event-row.race { border-left-color: #E11D48 !important; }
       .event-row.race .event-time { color: #E11D48; font-weight: 700; }
       .event-row.race .event-name { color: #E11D48; font-weight: 800; }
-      .event-row.race { border-left-color: #E11D48 !important; }
-      .event-sponsor { font-size: 8px; margin-top: 1px; }
-      .event-classes { font-size: 8px; margin-top: 1px; color: #E11D48; }
-      .event-location { font-size: 7px; margin-top: 1px; }
+      .event-classes { font-size: 7pt; color: #E11D48; margin-top: 1pt; line-height: 1.2; }
     }
   </style>
 </head>
