@@ -835,15 +835,14 @@ function printSchedule() {
     cleaned.push(c);
   });
 
-  // Col 1 = Mon–Fri, Col 2 = Sat–Sun (split at the Saturday card)
-  var splitAt = Math.ceil(cleaned.length / 2); // fallback
-  for (var i = 0; i < cleaned.length; i++) {
-    var dn = cleaned[i].querySelector('.day-name');
-    if (dn && dn.textContent.trim().toLowerCase() === 'saturday') { splitAt = i; break; }
-  }
-
-  var col1 = cleaned.slice(0, splitAt).map(function(c){ return c.outerHTML; }).join('');
-  var col2 = cleaned.slice(splitAt).map(function(c){ return c.outerHTML; }).join('');
+  // Col 1 = Thursday, Saturday  |  Col 2 = Friday, Sunday
+  var col1 = '', col2 = '';
+  cleaned.forEach(function(c) {
+    var name = (c.querySelector('.day-name') || {}).textContent || '';
+    name = name.trim().toLowerCase();
+    if (name === 'thursday' || name === 'saturday') col1 += c.outerHTML;
+    else col2 += c.outerHTML;
+  });
 
   var html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">' +
   '<title>2026 XINSURANCE Great Lakes Grand Prix – Schedule</title>' +
